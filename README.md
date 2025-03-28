@@ -1,8 +1,5 @@
 # Emoji Recommendation Tool
-
-
 ---
-
 ## Setup
 
 ### Install requirements
