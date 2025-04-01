@@ -3,9 +3,8 @@ __pycache__/
 *.py[cod]
 *.pyo
 
-# VS Code settings
+# VS Code settingss
 .vscode/
 
-# Virtual environments
-venv/
-.env/
+# Ignore virtual environments
+.venv/

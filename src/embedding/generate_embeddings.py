@@ -3,7 +3,7 @@ import numpy as np
 from sentence_transformers import SentenceTransformer
 
 # Step 1: Load the emoji CSV
-file_path = 'emojis.csv'
+file_path = '../data/emojis.csv'
 df = pd.read_csv(file_path)
 
 # Confirm column names
