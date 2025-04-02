@@ -1,0 +1,393 @@
+MPG,Cylinders,Displacement,Horsepower,Weight,Acceleration,ModelYear,Origin,Manufacturer,model
+18,7-8 Cyl.,307,130,3504,12,1970,North America,chevrolet,chevelle malibu
+15,7-8 Cyl.,350,165,3693,11.5,1970,North America,buick,skylark 320
+18,7-8 Cyl.,318,150,3436,11,1970,North America,plymouth,satellite
+16,7-8 Cyl.,304,150,3433,12,1970,North America,amc,rebel sst
+17,7-8 Cyl.,302,140,3449,10.5,1970,North America,ford,torino
+15,7-8 Cyl.,429,198,4341,10,1970,North America,ford,galaxie 500
+14,7-8 Cyl.,454,220,4354,9,1970,North America,chevrolet,impala
+14,7-8 Cyl.,440,215,4312,8.5,1970,North America,plymouth,fury iii
+14,7-8 Cyl.,455,225,4425,10,1970,North America,pontiac,catalina
+15,7-8 Cyl.,390,190,3850,8.5,1970,North America,amc,ambassador dpl
+15,7-8 Cyl.,383,170,3563,10,1970,North America,dodge,challenger se
+14,7-8 Cyl.,340,160,3609,8,1970,North America,plymouth,'cuda 340
+15,7-8 Cyl.,400,150,3761,9.5,1970,North America,chevrolet,monte carlo
+14,7-8 Cyl.,455,225,3086,10,1970,North America,buick,estate wagon (sw)
+24,3-4 Cyl.,113,95,2372,15,1970,Asia,toyota,corona mark ii
+22,5-6 Cyl.,198,95,2833,15.5,1970,North America,plymouth,duster
+18,5-6 Cyl.,199,97,2774,15.5,1970,North America,amc,hornet
+21,5-6 Cyl.,200,85,2587,16,1970,North America,ford,maverick
+27,3-4 Cyl.,97,88,2130,14.5,1970,Asia,datsun,pl510
+26,3-4 Cyl.,97,46,1835,20.5,1970,Europe,volkswagen,1131 deluxe sedan
+25,3-4 Cyl.,110,87,2672,17.5,1970,Europe,peugeot,504
+24,3-4 Cyl.,107,90,2430,14.5,1970,Europe,audi,100 ls
+25,3-4 Cyl.,104,95,2375,17.5,1970,Europe,saab,99e
+26,3-4 Cyl.,121,113,2234,12.5,1970,Europe,bmw,2002
+21,5-6 Cyl.,199,90,2648,15,1970,North America,amc,gremlin
+10,7-8 Cyl.,360,215,4615,14,1970,North America,ford,f250
+10,7-8 Cyl.,307,200,4376,15,1970,North America,chevrolet,c20
+11,7-8 Cyl.,318,210,4382,13.5,1970,North America,dodge,d200
+9,7-8 Cyl.,304,193,4732,18.5,1970,North America,hi,1200d
+27,3-4 Cyl.,97,88,2130,14.5,1971,Asia,datsun,pl510
+28,3-4 Cyl.,140,90,2264,15.5,1971,North America,chevrolet,vega 2300
+25,3-4 Cyl.,113,95,2228,14,1971,Asia,toyota,corona
+19,5-6 Cyl.,232,100,2634,13,1971,North America,amc,gremlin
+16,5-6 Cyl.,225,105,3439,15.5,1971,North America,plymouth,satellite custom
+17,5-6 Cyl.,250,100,3329,15.5,1971,North America,chevrolet,chevelle malibu
+19,5-6 Cyl.,250,88,3302,15.5,1971,North America,ford,torino 500
+18,5-6 Cyl.,232,100,3288,15.5,1971,North America,amc,matador
+14,7-8 Cyl.,350,165,4209,12,1971,North America,chevrolet,impala
+14,7-8 Cyl.,400,175,4464,11.5,1971,North America,pontiac,catalina brougham
+14,7-8 Cyl.,351,153,4154,13.5,1971,North America,ford,galaxie 500
+14,7-8 Cyl.,318,150,4096,13,1971,North America,plymouth,fury iii
+12,7-8 Cyl.,383,180,4955,11.5,1971,North America,dodge,monaco (sw)
+13,7-8 Cyl.,400,170,4746,12,1971,North America,ford,country squire (sw)
+13,7-8 Cyl.,400,175,5140,12,1971,North America,pontiac,safari (sw)
+18,5-6 Cyl.,258,110,2962,13.5,1971,North America,amc,hornet sportabout (sw)
+22,3-4 Cyl.,140,72,2408,19,1971,North America,chevrolet,vega (sw)
+19,5-6 Cyl.,250,100,3282,15,1971,North America,pontiac,firebird
+18,5-6 Cyl.,250,88,3139,14.5,1971,North America,ford,mustang
+23,3-4 Cyl.,122,86,2220,14,1971,North America,mercury,capri 2000
+28,3-4 Cyl.,116,90,2123,14,1971,Europe,opel,1900
+30,3-4 Cyl.,79,70,2074,19.5,1971,Europe,peugeot,304
+30,3-4 Cyl.,88,76,2065,14.5,1971,Europe,fiat,124b
+31,3-4 Cyl.,71,65,1773,19,1971,Asia,toyota,corolla 1200
+35,3-4 Cyl.,72,69,1613,18,1971,Asia,datsun,1200
+27,3-4 Cyl.,97,60,1834,19,1971,Europe,volkswagen,model 111
+26,3-4 Cyl.,91,70,1955,20.5,1971,North America,plymouth,cricket
+24,3-4 Cyl.,113,95,2278,15.5,1972,Asia,toyota,corona hardtop
+25,3-4 Cyl.,97.5,80,2126,17,1972,North America,dodge,colt hardtop
+23,3-4 Cyl.,97,54,2254,23.5,1972,Europe,volkswagen,type 3
+20,3-4 Cyl.,140,90,2408,19.5,1972,North America,chevrolet,vega
+21,3-4 Cyl.,122,86,2226,16.5,1972,North America,ford,pinto runabout
+13,7-8 Cyl.,350,165,4274,12,1972,North America,chevrolet,impala
+14,7-8 Cyl.,400,175,4385,12,1972,North America,pontiac,catalina
+15,7-8 Cyl.,318,150,4135,13.5,1972,North America,plymouth,fury iii
+14,7-8 Cyl.,351,153,4129,13,1972,North America,ford,galaxie 500
+17,7-8 Cyl.,304,150,3672,11.5,1972,North America,amc,ambassador sst
+11,7-8 Cyl.,429,208,4633,11,1972,North America,mercury,marquis
+13,7-8 Cyl.,350,155,4502,13.5,1972,North America,buick,lesabre custom
+12,7-8 Cyl.,350,160,4456,13.5,1972,North America,oldsmobile,delta 88 royale
+13,7-8 Cyl.,400,190,4422,12.5,1972,North America,chrysler,newport royal
+19,3-4 Cyl.,70,97,2330,13.5,1972,Asia,mazda,rx2 coupe
+15,7-8 Cyl.,304,150,3892,12.5,1972,North America,amc,matador (sw)
+13,7-8 Cyl.,307,130,4098,14,1972,North America,chevrolet,chevelle concours (sw)
+13,7-8 Cyl.,302,140,4294,16,1972,North America,ford,gran torino (sw)
+14,7-8 Cyl.,318,150,4077,14,1972,North America,plymouth,satellite custom (sw)
+18,3-4 Cyl.,121,112,2933,14.5,1972,Europe,volvo,145e (sw)
+22,3-4 Cyl.,121,76,2511,18,1972,Europe,volkswagen,411 (sw)
+21,3-4 Cyl.,120,87,2979,19.5,1972,Europe,peugeot,504 (sw)
+26,3-4 Cyl.,96,69,2189,18,1972,Europe,renault,12 (sw)
+22,3-4 Cyl.,122,86,2395,16,1972,North America,ford,pinto (sw)
+28,3-4 Cyl.,97,92,2288,17,1972,Asia,datsun,510 (sw)
+23,3-4 Cyl.,120,97,2506,14.5,1972,Asia,toyouta,corona mark ii (sw)
+28,3-4 Cyl.,98,80,2164,15,1972,North America,dodge,colt (sw)
+27,3-4 Cyl.,97,88,2100,16.5,1972,Asia,toyota,corolla 1600 (sw)
+13,7-8 Cyl.,350,175,4100,13,1973,North America,buick,century 350
+14,7-8 Cyl.,304,150,3672,11.5,1973,North America,amc,matador
+13,7-8 Cyl.,350,145,3988,13,1973,North America,chevrolet,malibu
+14,7-8 Cyl.,302,137,4042,14.5,1973,North America,ford,gran torino
+15,7-8 Cyl.,318,150,3777,12.5,1973,North America,dodge,coronet custom
+12,7-8 Cyl.,429,198,4952,11.5,1973,North America,mercury,marquis brougham
+13,7-8 Cyl.,400,150,4464,12,1973,North America,chevrolet,caprice classic
+13,7-8 Cyl.,351,158,4363,13,1973,North America,ford,ltd
+14,7-8 Cyl.,318,150,4237,14.5,1973,North America,plymouth,fury gran sedan
+13,7-8 Cyl.,440,215,4735,11,1973,North America,chrysler,new yorker brougham
+12,7-8 Cyl.,455,225,4951,11,1973,North America,buick,electra 225 custom
+13,7-8 Cyl.,360,175,3821,11,1973,North America,amc,ambassador brougham
+18,5-6 Cyl.,225,105,3121,16.5,1973,North America,plymouth,valiant
+16,5-6 Cyl.,250,100,3278,18,1973,North America,chevrolet,nova custom
+18,5-6 Cyl.,232,100,2945,16,1973,North America,amc,hornet
+18,5-6 Cyl.,250,88,3021,16.5,1973,North America,ford,maverick
+23,5-6 Cyl.,198,95,2904,16,1973,North America,plymouth,duster
+26,3-4 Cyl.,97,46,1950,21,1973,Europe,volkswagen,super beetle
+11,7-8 Cyl.,400,150,4997,14,1973,North America,chevrolet,impala
+12,7-8 Cyl.,400,167,4906,12.5,1973,North America,ford,country
+13,7-8 Cyl.,360,170,4654,13,1973,North America,plymouth,custom suburb
+12,7-8 Cyl.,350,180,4499,12.5,1973,North America,oldsmobile,vista cruiser
+18,5-6 Cyl.,232,100,2789,15,1973,North America,amc,gremlin
+20,3-4 Cyl.,97,88,2279,19,1973,Asia,toyota,carina
+21,3-4 Cyl.,140,72,2401,19.5,1973,North America,chevrolet,vega
+22,3-4 Cyl.,108,94,2379,16.5,1973,Asia,datsun,610
+18,3-4 Cyl.,70,90,2124,13.5,1973,Asia,mazda,rx3
+19,3-4 Cyl.,122,85,2310,18.5,1973,North America,ford,pinto
+21,5-6 Cyl.,155,107,2472,14,1973,North America,mercury,capri v6
+26,3-4 Cyl.,98,90,2265,15.5,1973,Europe,fiat,124 sport coupe
+15,7-8 Cyl.,350,145,4082,13,1973,North America,chevrolet,monte carlo s
+16,7-8 Cyl.,400,230,4278,9.5,1973,North America,pontiac,grand prix
+29,3-4 Cyl.,68,49,1867,19.5,1973,Europe,fiat,128
+24,3-4 Cyl.,116,75,2158,15.5,1973,Europe,opel,manta
+20,3-4 Cyl.,114,91,2582,14,1973,Europe,audi,100ls
+19,3-4 Cyl.,121,112,2868,15.5,1973,Europe,volvo,144ea
+15,7-8 Cyl.,318,150,3399,11,1973,North America,dodge,dart custom
+24,3-4 Cyl.,121,110,2660,14,1973,Europe,saab,99le
+20,5-6 Cyl.,156,122,2807,13.5,1973,Asia,toyota,mark ii
+11,7-8 Cyl.,350,180,3664,11,1973,North America,oldsmobile,omega
+20,5-6 Cyl.,198,95,3102,16.5,1974,North America,plymouth,duster
+19,5-6 Cyl.,232,100,2901,16,1974,North America,amc,hornet
+15,5-6 Cyl.,250,100,3336,17,1974,North America,chevrolet,nova
+31,3-4 Cyl.,79,67,1950,19,1974,Asia,datsun,b210
+26,3-4 Cyl.,122,80,2451,16.5,1974,North America,ford,pinto
+32,3-4 Cyl.,71,65,1836,21,1974,Asia,toyota,corolla 1200
+25,3-4 Cyl.,140,75,2542,17,1974,North America,chevrolet,vega
+16,5-6 Cyl.,250,100,3781,17,1974,North America,chevrolet,chevelle malibu classic
+16,5-6 Cyl.,258,110,3632,18,1974,North America,amc,matador
+18,5-6 Cyl.,225,105,3613,16.5,1974,North America,plymouth,satellite sebring
+16,7-8 Cyl.,302,140,4141,14,1974,North America,ford,gran torino
+13,7-8 Cyl.,350,150,4699,14.5,1974,North America,buick,century luxus (sw)
+14,7-8 Cyl.,318,150,4457,13.5,1974,North America,dodge,coronet custom (sw)
+14,7-8 Cyl.,302,140,4638,16,1974,North America,ford,gran torino (sw)
+14,7-8 Cyl.,304,150,4257,15.5,1974,North America,amc,matador (sw)
+29,3-4 Cyl.,98,83,2219,16.5,1974,Europe,audi,fox
+26,3-4 Cyl.,79,67,1963,15.5,1974,Europe,volkswagen,dasher
+26,3-4 Cyl.,97,78,2300,14.5,1974,Europe,opel,manta
+31,3-4 Cyl.,76,52,1649,16.5,1974,Asia,toyota,corona
+32,3-4 Cyl.,83,61,2003,19,1974,Asia,datsun,710
+28,3-4 Cyl.,90,75,2125,14.5,1974,North America,dodge,colt
+24,3-4 Cyl.,90,75,2108,15.5,1974,Europe,fiat,128
+26,3-4 Cyl.,116,75,2246,14,1974,Europe,fiat,124 tc
+24,3-4 Cyl.,120,97,2489,15,1974,Asia,honda,civic
+26,3-4 Cyl.,108,93,2391,15.5,1974,Asia,subaru,na
+31,3-4 Cyl.,79,67,2000,16,1974,Europe,fiat,x1.9
+19,5-6 Cyl.,225,95,3264,16,1975,North America,plymouth,valiant custom
+18,5-6 Cyl.,250,105,3459,16,1975,North America,chevrolet,nova
+15,5-6 Cyl.,250,72,3432,21,1975,North America,mercury,monarch
+15,5-6 Cyl.,250,72,3158,19.5,1975,North America,ford,maverick
+16,7-8 Cyl.,400,170,4668,11.5,1975,North America,pontiac,catalina
+15,7-8 Cyl.,350,145,4440,14,1975,North America,chevrolet,bel air
+16,7-8 Cyl.,318,150,4498,14.5,1975,North America,plymouth,grand fury
+14,7-8 Cyl.,351,148,4657,13.5,1975,North America,ford,ltd
+17,5-6 Cyl.,231,110,3907,21,1975,North America,buick,century
+16,5-6 Cyl.,250,105,3897,18.5,1975,North America,chevrolet,chevelle malibu
+15,5-6 Cyl.,258,110,3730,19,1975,North America,amc,matador
+18,5-6 Cyl.,225,95,3785,19,1975,North America,plymouth,fury
+21,5-6 Cyl.,231,110,3039,15,1975,North America,buick,skyhawk
+20,7-8 Cyl.,262,110,3221,13.5,1975,North America,chevrolet,monza 2+2
+13,7-8 Cyl.,302,129,3169,12,1975,North America,ford,mustang ii
+29,3-4 Cyl.,97,75,2171,16,1975,Asia,toyota,corolla
+23,3-4 Cyl.,140,83,2639,17,1975,North America,ford,pinto
+20,5-6 Cyl.,232,100,2914,16,1975,North America,amc,gremlin
+23,3-4 Cyl.,140,78,2592,18.5,1975,North America,pontiac,astro
+24,3-4 Cyl.,134,96,2702,13.5,1975,Asia,toyota,corona
+25,3-4 Cyl.,90,71,2223,16.5,1975,Europe,volkswagen,dasher
+24,3-4 Cyl.,119,97,2545,17,1975,Asia,datsun,710
+18,5-6 Cyl.,171,97,2984,14.5,1975,North America,ford,pinto
+29,3-4 Cyl.,90,70,1937,14,1975,Europe,volkswagen,rabbit
+19,5-6 Cyl.,232,90,3211,17,1975,North America,amc,pacer
+23,3-4 Cyl.,115,95,2694,15,1975,Europe,audi,100ls
+23,3-4 Cyl.,120,88,2957,17,1975,Europe,peugeot,504
+22,3-4 Cyl.,121,98,2945,14.5,1975,Europe,volvo,244dl
+25,3-4 Cyl.,121,115,2671,13.5,1975,Europe,saab,99le
+33,3-4 Cyl.,91,53,1795,17.5,1975,Asia,honda,civic cvcc
+28,3-4 Cyl.,107,86,2464,15.5,1976,Europe,fiat,131
+25,3-4 Cyl.,116,81,2220,16.9,1976,Europe,opel,1900
+25,3-4 Cyl.,140,92,2572,14.9,1976,North America,capri,ii
+26,3-4 Cyl.,98,79,2255,17.7,1976,North America,dodge,colt
+27,3-4 Cyl.,101,83,2202,15.3,1976,Europe,renault,12tl
+17.5,7-8 Cyl.,305,140,4215,13,1976,North America,chevrolet,chevelle malibu classic
+16,7-8 Cyl.,318,150,4190,13,1976,North America,dodge,coronet brougham
+15.5,7-8 Cyl.,304,120,3962,13.9,1976,North America,amc,matador
+14.5,7-8 Cyl.,351,152,4215,12.8,1976,North America,ford,gran torino
+22,5-6 Cyl.,225,100,3233,15.4,1976,North America,plymouth,valiant
+22,5-6 Cyl.,250,105,3353,14.5,1976,North America,chevrolet,nova
+24,5-6 Cyl.,200,81,3012,17.6,1976,North America,ford,maverick
+22.5,5-6 Cyl.,232,90,3085,17.6,1976,North America,amc,hornet
+29,3-4 Cyl.,85,52,2035,22.2,1976,North America,chevrolet,chevette
+24.5,3-4 Cyl.,98,60,2164,22.1,1976,North America,chevrolet,woody
+29,3-4 Cyl.,90,70,1937,14.2,1976,Europe,volkswagen,rabbit
+33,3-4 Cyl.,91,53,1795,17.4,1976,Asia,honda,civic
+20,5-6 Cyl.,225,100,3651,17.7,1976,North America,dodge,aspen se
+18,5-6 Cyl.,250,78,3574,21,1976,North America,ford,granada ghia
+18.5,5-6 Cyl.,250,110,3645,16.2,1976,North America,pontiac,ventura sj
+17.5,5-6 Cyl.,258,95,3193,17.8,1976,North America,amc,pacer d/l
+29.5,3-4 Cyl.,97,71,1825,12.2,1976,Europe,volkswagen,rabbit
+32,3-4 Cyl.,85,70,1990,17,1976,Asia,datsun,b-210
+28,3-4 Cyl.,97,75,2155,16.4,1976,Asia,toyota,corolla
+26.5,3-4 Cyl.,140,72,2565,13.6,1976,North America,ford,pinto
+20,3-4 Cyl.,130,102,3150,15.7,1976,Europe,volvo,245
+13,7-8 Cyl.,318,150,3940,13.2,1976,North America,plymouth,volare premier v8
+19,3-4 Cyl.,120,88,3270,21.9,1976,Europe,peugeot,504
+19,5-6 Cyl.,156,108,2930,15.5,1976,Asia,toyota,mark ii
+16.5,5-6 Cyl.,168,120,3820,16.7,1976,Europe,mercedes-benz,280s
+16.5,7-8 Cyl.,350,180,4380,12.1,1976,North America,cadillac,seville
+13,7-8 Cyl.,350,145,4055,12,1976,North America,chevrolet,c10
+13,7-8 Cyl.,302,130,3870,15,1976,North America,ford,f108
+13,7-8 Cyl.,318,150,3755,14,1976,North America,dodge,d100
+31.5,3-4 Cyl.,98,68,2045,18.5,1977,Asia,honda,accord cvcc
+30,3-4 Cyl.,111,80,2155,14.8,1977,North America,buick,opel isuzu deluxe
+36,3-4 Cyl.,79,58,1825,18.6,1977,Europe,renault,5 gtl
+25.5,3-4 Cyl.,122,96,2300,15.5,1977,North America,plymouth,arrow gs
+33.5,3-4 Cyl.,85,70,1945,16.8,1977,Asia,datsun,f-10 hatchback
+17.5,7-8 Cyl.,305,145,3880,12.5,1977,North America,chevrolet,caprice classic
+17,7-8 Cyl.,260,110,4060,19,1977,North America,oldsmobile,cutlass supreme
+15.5,7-8 Cyl.,318,145,4140,13.7,1977,North America,dodge,monaco brougham
+15,7-8 Cyl.,302,130,4295,14.9,1977,North America,mercury,cougar brougham
+17.5,5-6 Cyl.,250,110,3520,16.4,1977,North America,chevrolet,concours
+20.5,5-6 Cyl.,231,105,3425,16.9,1977,North America,buick,skylark
+19,5-6 Cyl.,225,100,3630,17.7,1977,North America,plymouth,volare custom
+18.5,5-6 Cyl.,250,98,3525,19,1977,North America,ford,granada
+16,7-8 Cyl.,400,180,4220,11.1,1977,North America,pontiac,grand prix lj
+15.5,7-8 Cyl.,350,170,4165,11.4,1977,North America,chevrolet,monte carlo landau
+15.5,7-8 Cyl.,400,190,4325,12.2,1977,North America,chrysler,cordoba
+16,7-8 Cyl.,351,149,4335,14.5,1977,North America,ford,thunderbird
+29,3-4 Cyl.,97,78,1940,14.5,1977,Europe,volkswagen,rabbit custom
+24.5,3-4 Cyl.,151,88,2740,16,1977,North America,pontiac,sunbird coupe
+26,3-4 Cyl.,97,75,2265,18.2,1977,Asia,toyota,corolla liftback
+25.5,3-4 Cyl.,140,89,2755,15.8,1977,North America,ford,mustang ii 2+2
+30.5,3-4 Cyl.,98,63,2051,17,1977,North America,chevrolet,chevette
+33.5,3-4 Cyl.,98,83,2075,15.9,1977,North America,dodge,colt m/m
+30,3-4 Cyl.,97,67,1985,16.4,1977,Asia,subaru,dl
+30.5,3-4 Cyl.,97,78,2190,14.1,1977,Europe,volkswagen,dasher
+22,5-6 Cyl.,146,97,2815,14.5,1977,Asia,datsun,810
+21.5,3-4 Cyl.,121,110,2600,12.8,1977,Europe,bmw,320i
+21.5,3-4 Cyl.,80,110,2720,13.5,1977,Asia,mazda,rx-4
+43.1,3-4 Cyl.,90,48,1985,21.5,1978,Europe,volkswagen,rabbit custom diesel
+36.1,3-4 Cyl.,98,66,1800,14.4,1978,North America,ford,fiesta
+32.8,3-4 Cyl.,78,52,1985,19.4,1978,Asia,mazda,glc deluxe
+39.4,3-4 Cyl.,85,70,2070,18.6,1978,Asia,datsun,b210 gx
+36.1,3-4 Cyl.,91,60,1800,16.4,1978,Asia,honda,civic cvcc
+19.9,7-8 Cyl.,260,110,3365,15.5,1978,North America,oldsmobile,cutlass salon brougham
+19.4,7-8 Cyl.,318,140,3735,13.2,1978,North America,dodge,diplomat
+20.2,7-8 Cyl.,302,139,3570,12.8,1978,North America,mercury,monarch ghia
+19.2,5-6 Cyl.,231,105,3535,19.2,1978,North America,pontiac,phoenix lj
+20.5,5-6 Cyl.,200,95,3155,18.2,1978,North America,chevrolet,malibu
+20.2,5-6 Cyl.,200,85,2965,15.8,1978,North America,ford,fairmont (auto)
+25.1,3-4 Cyl.,140,88,2720,15.4,1978,North America,ford,fairmont (man)
+20.5,5-6 Cyl.,225,100,3430,17.2,1978,North America,plymouth,volare
+19.4,5-6 Cyl.,232,90,3210,17.2,1978,North America,amc,concord
+20.6,5-6 Cyl.,231,105,3380,15.8,1978,North America,buick,century special
+20.8,5-6 Cyl.,200,85,3070,16.7,1978,North America,mercury,zephyr
+18.6,5-6 Cyl.,225,110,3620,18.7,1978,North America,dodge,aspen
+18.1,5-6 Cyl.,258,120,3410,15.1,1978,North America,amc,concord d/l
+19.2,7-8 Cyl.,305,145,3425,13.2,1978,North America,chevrolet,monte carlo landau
+17.7,5-6 Cyl.,231,165,3445,13.4,1978,North America,buick,regal sport coupe (turbo)
+18.1,7-8 Cyl.,302,139,3205,11.2,1978,North America,ford,futura
+17.5,7-8 Cyl.,318,140,4080,13.7,1978,North America,dodge,magnum xe
+30,3-4 Cyl.,98,68,2155,16.5,1978,North America,chevrolet,chevette
+27.5,3-4 Cyl.,134,95,2560,14.2,1978,Asia,toyota,corona
+27.2,3-4 Cyl.,119,97,2300,14.7,1978,Asia,datsun,510
+30.9,3-4 Cyl.,105,75,2230,14.5,1978,North America,dodge,omni
+21.1,3-4 Cyl.,134,95,2515,14.8,1978,Asia,toyota,celica gt liftback
+23.2,3-4 Cyl.,156,105,2745,16.7,1978,North America,plymouth,sapporo
+23.8,3-4 Cyl.,151,85,2855,17.6,1978,North America,oldsmobile,starfire sx
+23.9,3-4 Cyl.,119,97,2405,14.9,1978,Asia,datsun,200-sx
+20.3,5-6 Cyl.,131,103,2830,15.9,1978,Europe,audi,5000
+17,5-6 Cyl.,163,125,3140,13.6,1978,Europe,volvo,264gl
+21.6,3-4 Cyl.,121,115,2795,15.7,1978,Europe,saab,99gle
+16.2,5-6 Cyl.,163,133,3410,15.8,1978,Europe,peugeot,604sl
+31.5,3-4 Cyl.,89,71,1990,14.9,1978,Europe,volkswagen,scirocco
+29.5,3-4 Cyl.,98,68,2135,16.6,1978,Asia,honda,accord lx
+21.5,5-6 Cyl.,231,115,3245,15.4,1979,North America,pontiac,lemans v6
+19.8,5-6 Cyl.,200,85,2990,18.2,1979,North America,mercury,zephyr 6
+22.3,3-4 Cyl.,140,88,2890,17.3,1979,North America,ford,fairmont 4
+20.2,5-6 Cyl.,232,90,3265,18.2,1979,North America,amc,concord dl 6
+20.6,5-6 Cyl.,225,110,3360,16.6,1979,North America,dodge,aspen 6
+17,7-8 Cyl.,305,130,3840,15.4,1979,North America,chevrolet,caprice classic
+17.6,7-8 Cyl.,302,129,3725,13.4,1979,North America,ford,ltd landau
+16.5,7-8 Cyl.,351,138,3955,13.2,1979,North America,mercury,grand marquis
+18.2,7-8 Cyl.,318,135,3830,15.2,1979,North America,dodge,st. regis
+16.9,7-8 Cyl.,350,155,4360,14.9,1979,North America,buick,estate wagon (sw)
+15.5,7-8 Cyl.,351,142,4054,14.3,1979,North America,ford,country squire (sw)
+19.2,7-8 Cyl.,267,125,3605,15,1979,North America,chevrolet,malibu classic (sw)
+18.5,7-8 Cyl.,360,150,3940,13,1979,North America,chrysler,lebaron town @ country (sw)
+31.9,3-4 Cyl.,89,71,1925,14,1979,Europe,volkswagen,rabbit custom
+34.1,3-4 Cyl.,86,65,1975,15.2,1979,Asia,mazda,glc deluxe
+35.7,3-4 Cyl.,98,80,1915,14.4,1979,North America,dodge,colt hatchback custom
+27.4,3-4 Cyl.,121,80,2670,15,1979,North America,amc,spirit dl
+25.4,5-6 Cyl.,183,77,3530,20.1,1979,Europe,mercedes-benz, 300d
+23,7-8 Cyl.,350,125,3900,17.4,1979,North America,cadillac,eldorado
+27.2,3-4 Cyl.,141,71,3190,24.8,1979,Europe,peugeot,504
+23.9,7-8 Cyl.,260,90,3420,22.2,1979,North America,oldsmobile,cutlass salon brougham
+34.2,3-4 Cyl.,105,70,2200,13.2,1979,North America,plymouth,horizon
+34.5,3-4 Cyl.,105,70,2150,14.9,1979,North America,plymouth,horizon tc3
+31.8,3-4 Cyl.,85,65,2020,19.2,1979,Asia,datsun,210
+37.3,3-4 Cyl.,91,69,2130,14.7,1979,Europe,fiat,strada custom
+28.4,3-4 Cyl.,151,90,2670,16,1979,North America,buick,skylark limited
+28.8,5-6 Cyl.,173,115,2595,11.3,1979,North America,chevrolet,citation
+26.8,5-6 Cyl.,173,115,2700,12.9,1979,North America,oldsmobile,omega brougham
+33.5,3-4 Cyl.,151,90,2556,13.2,1979,North America,pontiac,phoenix
+41.5,3-4 Cyl.,98,76,2144,14.7,1980,Europe,volkswagen,rabbit
+38.1,3-4 Cyl.,89,60,1968,18.8,1980,Asia,toyota,corolla tercel
+32.1,3-4 Cyl.,98,70,2120,15.5,1980,North America,chevrolet,chevette
+37.2,3-4 Cyl.,86,65,2019,16.4,1980,Asia,datsun,310
+28,3-4 Cyl.,151,90,2678,16.5,1980,North America,chevrolet,citation
+26.4,3-4 Cyl.,140,88,2870,18.1,1980,North America,ford,fairmont
+24.3,3-4 Cyl.,151,90,3003,20.1,1980,North America,amc,concord
+19.1,5-6 Cyl.,225,90,3381,18.7,1980,North America,dodge,aspen
+34.3,3-4 Cyl.,97,78,2188,15.8,1980,Europe,audi,4000
+29.8,3-4 Cyl.,134,90,2711,15.5,1980,Asia,toyota,corona liftback
+31.3,3-4 Cyl.,120,75,2542,17.5,1980,Asia,mazda,626
+37,3-4 Cyl.,119,92,2434,15,1980,Asia,datsun,510 hatchback
+32.2,3-4 Cyl.,108,75,2265,15.2,1980,Asia,toyota,corolla
+46.6,3-4 Cyl.,86,65,2110,17.9,1980,Asia,mazda,glc
+27.9,3-4 Cyl.,156,105,2800,14.4,1980,North America,dodge,colt
+40.8,3-4 Cyl.,85,65,2110,19.2,1980,Asia,datsun,210
+44.3,3-4 Cyl.,90,48,2085,21.7,1980,Europe,volkswagen,rabbit c (diesel)
+43.4,3-4 Cyl.,90,48,2335,23.7,1980,Europe,volkswagen,dasher (diesel)
+36.4,5-6 Cyl.,121,67,2950,19.9,1980,Europe,audi,5000s (diesel)
+30,3-4 Cyl.,146,67,3250,21.8,1980,Europe,mercedes-benz,240d
+44.6,3-4 Cyl.,91,67,1850,13.8,1980,Asia,honda,civic 1500 gl
+33.8,3-4 Cyl.,97,67,2145,18,1980,Asia,subaru,dl
+29.8,3-4 Cyl.,89,62,1845,15.3,1980,Europe,volkswagen,rabbit
+32.7,5-6 Cyl.,168,132,2910,11.4,1980,Asia,datsun,280-zx
+23.7,3-4 Cyl.,70,100,2420,12.5,1980,Asia,mazda,rx-7 gs
+35,3-4 Cyl.,122,88,2500,15.1,1980,Europe,triumph,tr7 coupe
+32.4,3-4 Cyl.,107,72,2290,17,1980,Asia,honda,accord
+27.2,3-4 Cyl.,135,84,2490,15.7,1981,North America,plymouth,reliant
+26.6,3-4 Cyl.,151,84,2635,16.4,1981,North America,buick,skylark
+25.8,3-4 Cyl.,156,92,2620,14.4,1981,North America,dodge,aries wagon (sw)
+23.5,5-6 Cyl.,173,110,2725,12.6,1981,North America,chevrolet,citation
+30,3-4 Cyl.,135,84,2385,12.9,1981,North America,plymouth,reliant
+39.1,3-4 Cyl.,79,58,1755,16.9,1981,Asia,toyota,starlet
+39,3-4 Cyl.,86,64,1875,16.4,1981,North America,plymouth,champ
+35.1,3-4 Cyl.,81,60,1760,16.1,1981,Asia,honda,civic 1300
+32.3,3-4 Cyl.,97,67,2065,17.8,1981,Asia,subaru,na
+37,3-4 Cyl.,85,65,1975,19.4,1981,Asia,datsun,210 mpg
+37.7,3-4 Cyl.,89,62,2050,17.3,1981,Asia,toyota,tercel
+34.1,3-4 Cyl.,91,68,1985,16,1981,Asia,mazda,glc 4
+34.7,3-4 Cyl.,105,63,2215,14.9,1981,North America,plymouth,horizon 4
+34.4,3-4 Cyl.,98,65,2045,16.2,1981,North America,ford,escort 4w
+29.9,3-4 Cyl.,98,65,2380,20.7,1981,North America,ford,escort 2h
+33,3-4 Cyl.,105,74,2190,14.2,1981,Europe,volkswagen,jetta
+33.7,3-4 Cyl.,107,75,2210,14.4,1981,Asia,honda,prelude
+32.4,3-4 Cyl.,108,75,2350,16.8,1981,Asia,toyota,corolla
+32.9,3-4 Cyl.,119,100,2615,14.8,1981,Asia,datsun,200sx
+31.6,3-4 Cyl.,120,74,2635,18.3,1981,Asia,mazda,626
+28.1,3-4 Cyl.,141,80,3230,20.4,1981,Europe,peugeot,505s turbo diesel
+30.7,5-6 Cyl.,145,76,3160,19.6,1981,Europe,volvo,diesel
+25.4,5-6 Cyl.,168,116,2900,12.6,1981,Asia,toyota,cressida
+24.2,5-6 Cyl.,146,120,2930,13.8,1981,Asia,datsun,810 maxima
+22.4,5-6 Cyl.,231,110,3415,15.8,1981,North America,buick,century
+26.6,7-8 Cyl.,350,105,3725,19,1981,North America,oldsmobile,cutlass ls
+20.2,5-6 Cyl.,200,88,3060,17.1,1981,North America,ford,granada gl
+17.6,5-6 Cyl.,225,85,3465,16.6,1981,North America,chrysler,lebaron salon
+28,3-4 Cyl.,112,88,2605,19.6,1982,North America,chevrolet,cavalier
+27,3-4 Cyl.,112,88,2640,18.6,1982,North America,chevrolet,cavalier wagon
+34,3-4 Cyl.,112,88,2395,18,1982,North America,chevrolet,cavalier 2-door
+31,3-4 Cyl.,112,85,2575,16.2,1982,North America,pontiac,j2000 se hatchback
+29,3-4 Cyl.,135,84,2525,16,1982,North America,dodge,aries se
+27,3-4 Cyl.,151,90,2735,18,1982,North America,pontiac,phoenix
+24,3-4 Cyl.,140,92,2865,16.4,1982,North America,ford,fairmont futura
+36,3-4 Cyl.,105,74,1980,15.3,1982,Europe,volkswagen,rabbit l
+37,3-4 Cyl.,91,68,2025,18.2,1982,Asia,mazda,glc custom l
+31,3-4 Cyl.,91,68,1970,17.6,1982,Asia,mazda,glc custom
+38,3-4 Cyl.,105,63,2125,14.7,1982,North America,plymouth,horizon miser
+36,3-4 Cyl.,98,70,2125,17.3,1982,North America,mercury,lynx l
+36,3-4 Cyl.,120,88,2160,14.5,1982,Asia,nissan,stanza xe
+36,3-4 Cyl.,107,75,2205,14.5,1982,Asia,honda,accord
+34,3-4 Cyl.,108,70,2245,16.9,1982,Asia,toyota,corolla
+38,3-4 Cyl.,91,67,1965,15,1982,Asia,honda,civic
+32,3-4 Cyl.,91,67,1965,15.7,1982,Asia,honda,civic (auto)
+38,3-4 Cyl.,91,67,1995,16.2,1982,Asia,datsun,310 gx
+25,5-6 Cyl.,181,110,2945,16.4,1982,North America,buick,century limited
+38,5-6 Cyl.,262,85,3015,17,1982,North America,oldsmobile,cutlass ciera (diesel)
+26,3-4 Cyl.,156,92,2585,14.5,1982,North America,chrysler,lebaron medallion
+22,5-6 Cyl.,232,112,2835,14.7,1982,North America,ford,granada l
+32,3-4 Cyl.,144,96,2665,13.9,1982,Asia,toyota,celica gt
+36,3-4 Cyl.,135,84,2370,13,1982,North America,dodge,charger 2.2
+27,3-4 Cyl.,151,90,2950,17.3,1982,North America,chevrolet,camaro
+27,3-4 Cyl.,140,86,2790,15.6,1982,North America,ford,mustang gl
+44,3-4 Cyl.,97,52,2130,24.6,1982,Europe,volkswagen,pickup
+32,3-4 Cyl.,135,84,2295,11.6,1982,North America,dodge,rampage
+28,3-4 Cyl.,120,79,2625,18.6,1982,North America,ford,ranger
+31,3-4 Cyl.,119,82,2720,19.4,1982,North America,chevrolet,s-10
