@@ -13,9 +13,11 @@ def run_combined_service(column_texts: list, table_description: str, top_k: int 
                          desc_weight: float = 0.4, keyword_weight: float = 0.6) -> dict:
     """
     Returns top emojis per column based on combined NER and embedding approaches.
+    If a column is ambiguous, prompt the user for a description to proceed.
     """
     print(f"\nRunning Combined Emoji Service for {len(column_texts)} columns")
-    full_contexts = [f"{table_description}. Column: {col}" for col in column_texts]
+    full_contexts = [f"{col} in the context of {table_description}" for col in column_texts]
+    print(f"Full contexts: {full_contexts}")
 
     # Load models and data
     embedding_model, keyword_model, df, desc_embeds, keyword_embeds = load_models_and_data()
@@ -31,21 +33,33 @@ def run_combined_service(column_texts: list, table_description: str, top_k: int 
     column_to_query_text = {}
 
     for col in column_texts:
-        context = f"{table_description} {col}"
+        context = f"{col} {table_description}"
         result = get_best_sense_by_embedding(context, col)
 
         if result == "Need more description please!":
-            print(f"Column \"{col}\" is ambiguous. Skipping embedding.")
+            print(f"Column \"{col}\" is ambiguous.")
+            user_input = input(f"Please provide a short description for \"{col}\": ").strip()
+            if user_input:
+                column_to_query_text[col] = f"{col} {user_input}"
+                filtered_columns.append(col)
+            else:
+                print(f"No description provided. Skipping \"{col}\".")
             continue
 
         if len(col.strip().split()) >= 2:
             column_to_query_text[col] = col
             filtered_columns.append(col)
         elif isinstance(result, dict) and result["score"] >= 0.1:
-            column_to_query_text[col] = col + table_description + result["definition"]
+            column_to_query_text[col] = col + " " + result["definition"]
             filtered_columns.append(col)
         else:
-            print(f"Column \"{col}\" is ambiguous. Skipping embedding.")
+            print(f"Column \"{col}\" is ambiguous.")
+            user_input = input(f"Please provide a short description for \"{col}\": ").strip()
+            if user_input:
+                column_to_query_text[col] = f"{col} {user_input}"
+                filtered_columns.append(col)
+            else:
+                print(f"No description provided. Skipping \"{col}\".")
 
     # Step 3: Embedding-based keyword matching
     print("\nStep 3: Running embedding-based keyword search...")
@@ -83,6 +97,7 @@ def run_combined_service(column_texts: list, table_description: str, top_k: int 
         # Keyword-based emojis
         if col in keyword_results:
             keyword_match_dict = keyword_results[col]
+            print(keyword_match_dict)
             for keyword, matches in keyword_match_dict.items():
                 weight = 2 ** (len(keyword.split()) - 1)
                 for match in matches:
