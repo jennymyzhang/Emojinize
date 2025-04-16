@@ -128,21 +128,24 @@ class EmojiScaler:
         axis_to_emojis = {}
         for axis in axes:
             try:
-                emoji_scale = self.generate_scale_with_axis(column_name, axis, top_k=top_k, scale_size=scale_size)
-                axis_to_emojis[axis] = emoji_scale
+                emoji_scales = self.generate_scale_with_axis(column_name, axis, top_k=top_k, scale_size=scale_size)
+                for i, scale in enumerate(emoji_scales):
+                    axis_to_emojis[(axis, i)] = scale  # each scale is List[str]
             except Exception as e:
                 print(f"Failed on axis {axis}: {e}")
         if not axis_to_emojis:
             return []
         return self.rank_scales_with_llm(column_name, axis_to_emojis)
 
-    def _closest_emoji(self, phrase: str, exclude: List[str] = []) -> str:
-        # Try exact match in emoji descriptions
-        for _, row in self.emoji_df.iterrows():
-            if phrase.lower() in row["description"].lower() and row["emoji"] not in exclude:
-                return row["emoji"]
+    def _closest_emoji_list(self, phrase: str, k: int = 3, exclude: List[str] = []) -> List[str]:
+        matches = [
+            row["emoji"]
+            for _, row in self.emoji_df.iterrows()
+            if phrase.lower() in row["description"].lower() and row["emoji"] not in exclude
+        ]
+        if len(matches) >= k:
+            return matches[:k]
 
-        # Fallback: embed the full phrase
         phrase_vec = self.model.encode(phrase, convert_to_tensor=True).to(self.device)
         all_embeddings = torch.stack([
             torch.nn.functional.normalize(self._to_tensor(x), dim=0)
@@ -150,15 +153,21 @@ class EmojiScaler:
         ])
         similarities = util.pytorch_cos_sim(phrase_vec, all_embeddings)[0]
 
-        for i, emoji in enumerate(self.emoji_df["emoji"]):
-            if emoji in exclude:
-                similarities[i] = -float("inf")
+        emoji_list = self.emoji_df["emoji"].tolist()
+        emoji_sim = [(emoji, similarities[i].item()) for i, emoji in enumerate(emoji_list) if emoji not in exclude]
+        emoji_sim.sort(key=lambda x: x[1], reverse=True)
 
-        idx = similarities.argmax().item()
-        return self.emoji_df.iloc[idx]["emoji"]
+        return [emoji for emoji, _ in emoji_sim[:k]]
 
 
-    def generate_scale_with_axis(self, column_name: str, axis_pair: Tuple[str, str], top_k=100, scale_size=5) -> List[str]:
+    def generate_scale_with_axis(
+        self,
+        column_name: str,
+        axis_pair: Tuple[str, str],
+        top_k=100,
+        scale_size=5,
+        num_endpoints=3  # how many top LOW/HIGH to try
+    ) -> List[List[str]]:
         query_vec = self.model.encode(column_name, convert_to_tensor=True).to(self.device)
         a_vec = self.model.encode(axis_pair[0], convert_to_tensor=True).to(self.device)
         b_vec = self.model.encode(axis_pair[1], convert_to_tensor=True).to(self.device)
@@ -197,21 +206,28 @@ class EmojiScaler:
 
         sorted_df = selected.sort_values(by="score", ascending=True).reset_index(drop=True)
 
-        # ---- FORCED ENDPOINTS ----
         if len(sorted_df) < scale_size:
-            return sorted_df["emoji_text"].tolist()
+            return [sorted_df["emoji_text"].tolist()]
 
-        low_emoji = self._closest_emoji(axis_pair[0])
-        high_emoji = self._closest_emoji(axis_pair[1], exclude=[low_emoji])
+        # endpoint
+        low_candidates = self._closest_emoji_list(axis_pair[0], k=num_endpoints)
+        high_candidates = self._closest_emoji_list(axis_pair[1], k=num_endpoints, exclude=low_candidates)
 
+        # middle
+        middle_pool = sorted_df.iloc[1:-1]["emoji"].tolist()
         num_middle = scale_size - 2
-        if num_middle > 0:
-            indices = np.linspace(1, len(sorted_df) - 2, num=num_middle, dtype=int)
-            middle = sorted_df.iloc[indices]["emoji"].tolist()
-        else:
-            middle = []
+        if len(middle_pool) < num_middle:
+            middle_pool = middle_pool * ((num_middle + len(middle_pool) - 1) // len(middle_pool))
 
-        return [low_emoji] + middle + [high_emoji]
+        all_scales = []
+        for low in low_candidates:
+            for high in high_candidates:
+                middle = middle_pool[:num_middle]
+                scale = [low + " (LOW)"] + middle + [high + " (HIGH)"]
+                all_scales.append(scale)
+                middle_pool = middle_pool[num_middle:] + middle  # rotate pool
+
+        return all_scales
 
 
     def rank_scales_with_llm(self, column_name: str, axis_to_emojis: dict) -> List[str]:
