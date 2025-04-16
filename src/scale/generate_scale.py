@@ -137,6 +137,12 @@ class EmojiScaler:
         return self.rank_scales_with_llm(column_name, axis_to_emojis)
 
     def _closest_emoji(self, phrase: str, exclude: List[str] = []) -> str:
+        # Try exact match in emoji descriptions
+        for _, row in self.emoji_df.iterrows():
+            if phrase.lower() in row["description"].lower() and row["emoji"] not in exclude:
+                return row["emoji"]
+
+        # Fallback: embed the full phrase
         phrase_vec = self.model.encode(phrase, convert_to_tensor=True).to(self.device)
         all_embeddings = torch.stack([
             torch.nn.functional.normalize(self._to_tensor(x), dim=0)
@@ -144,7 +150,6 @@ class EmojiScaler:
         ])
         similarities = util.pytorch_cos_sim(phrase_vec, all_embeddings)[0]
 
-        # Mask out excluded emojis
         for i, emoji in enumerate(self.emoji_df["emoji"]):
             if emoji in exclude:
                 similarities[i] = -float("inf")
@@ -198,6 +203,7 @@ class EmojiScaler:
 
         low_emoji = self._closest_emoji(axis_pair[0])
         high_emoji = self._closest_emoji(axis_pair[1], exclude=[low_emoji])
+
         num_middle = scale_size - 2
         if num_middle > 0:
             indices = np.linspace(1, len(sorted_df) - 2, num=num_middle, dtype=int)
@@ -236,3 +242,5 @@ scaler = EmojiScaler(
 
 print("Best scale for 'battery':", scaler.generate_best_llm_scale("battery"))
 print("Best scale for 'popularity':", scaler.generate_best_llm_scale("popularity"))
+print("Best scale for 'popularity':", scaler.generate_best_llm_scale("speed"))
+print("Best scale for 'popularity':", scaler.generate_best_llm_scale("emotion"))
