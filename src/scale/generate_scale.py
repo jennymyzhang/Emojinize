@@ -5,62 +5,24 @@ import torch
 import requests
 import re
 from typing import List, Tuple
+import ast
 
 OPENROUTER_API_KEY = "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"
 OPENROUTER_API_URL = "https://openrouter.ai/api/v1/chat/completions"
-LLM_MODEL = "google/gemini-2.0-flash-001"
+LLM_MODEL = "openai/gpt-4o-mini"
 
 class EmojiScaler:
     def __init__(self, emoji_csv_path, embedding_path):
         self.emoji_df = pd.read_csv(emoji_csv_path)
         self.model = SentenceTransformer("paraphrase-mpnet-base-v2")
         self.device = torch.device("mps" if torch.backends.mps.is_available() else "cpu")
-
         description_embeddings = np.load(embedding_path)
-        self.emoji_df["embedding"] = [x for x in torch.tensor(description_embeddings).cpu()]
+        self.emoji_df["embedding"] = list(description_embeddings)
 
-    def generate_scale_with_axis(self, column_name: str, axis_pair: Tuple[str, str], top_k=100, scale_size=5) -> List[str]:
-        # Normalize the antonym vectors before computing axis
-        # and create an expanded projection-relevance scoring scheme with a balance of semantic similarity, directionality, and contextual emphasis
-        # Normalize the antonym vectors before computing axis
-        query_vec = self.model.encode(column_name, convert_to_tensor=True).to(self.device)
-        a_vec = self.model.encode(axis_pair[0], convert_to_tensor=True).to(self.device)
-        b_vec = self.model.encode(axis_pair[1], convert_to_tensor=True).to(self.device)
-
-        a_vec = a_vec / (a_vec.norm() + 1e-6)
-        b_vec = b_vec / (b_vec.norm() + 1e-6)
-
-        query_vec = self.model.encode(column_name, convert_to_tensor=True).to(self.device)
-        a_vec = self.model.encode(axis_pair[0], convert_to_tensor=True).to(self.device)
-        b_vec = self.model.encode(axis_pair[1], convert_to_tensor=True).to(self.device)
-
-        axis_vec = b_vec - a_vec
-        axis_unit = axis_vec / (axis_vec.norm() + 1e-6)
-        axis_unit = axis_vec / (axis_vec.norm() + 1e-6)
-        midpoint = (a_vec + b_vec) / 2.0
-
-        all_embeddings = torch.stack([torch.nn.functional.normalize(torch.tensor(x).to(self.device), dim=0) for x in self.emoji_df["embedding"]])
-        similarities = util.pytorch_cos_sim(query_vec, all_embeddings)[0]
-        top_indices = similarities.topk(top_k).indices.tolist()
-        selected = self.emoji_df.iloc[top_indices].copy()
-        selected_embeddings = torch.stack([torch.nn.functional.normalize(torch.tensor(x).to(self.device), dim=0) for x in selected["embedding"]])
-
-        centered = selected_embeddings - midpoint
-        projection = torch.matmul(centered, axis_unit)
-        relevance = util.pytorch_cos_sim(query_vec, selected_embeddings)[0]
-
-        norm_proj = (projection - projection.mean()) / (projection.std() + 1e-6)
-        norm_rel = (relevance - relevance.mean()) / (relevance.std() + 1e-6)
-
-        semantic_boost = torch.cosine_similarity(selected_embeddings, b_vec.unsqueeze(0), dim=1)
-        norm_semantic_boost = (semantic_boost - semantic_boost.mean()) / (semantic_boost.std() + 1e-6)
-
-        final_score = (0.5 * norm_proj + 0.3 * norm_rel + 0.2 * norm_semantic_boost)
-        selected["emoji_text"] = selected["emoji"] + " (" + np.round(final_score.cpu().numpy(), 2).astype(str) + ")"
-        selected["score"] = final_score.tolist()
-        sorted_df = selected.sort_values(by="score", ascending=True).reset_index(drop=True)
-        indices = torch.linspace(0, len(sorted_df) - 1, steps=scale_size).long()
-        return sorted_df.iloc[indices]["emoji_text"].tolist()
+    def _to_tensor(self, x):
+        if isinstance(x, torch.Tensor):
+            return x.detach().float().to(self.device)
+        return torch.from_numpy(x).float().to(self.device)
 
     def _call_openrouter(self, prompt: str) -> str:
         headers = {
@@ -83,48 +45,69 @@ class EmojiScaler:
 
         return response_json["choices"][0]["message"]["content"].strip()
 
-    def get_llm_antonym_pairs(self, column_name: str) -> List[Tuple[str, str]]:
+    def get_llm_antonym_pairs_multi(self, column_name: str, num_queries=3) -> List[Tuple[str, str]]:
+        all_pairs = []
+        for _ in range(num_queries):
+            all_pairs.extend(self._get_llm_antonym_pairs_once(column_name))
+        seen = set()
+        deduped = []
+        for a, b in all_pairs:
+            key = (a.lower(), b.lower())
+            if key not in seen:
+                deduped.append((a, b))
+                seen.add(key)
+        return deduped
+
+    def _get_llm_antonym_pairs_once(self, column_name: str) -> List[Tuple[str, str]]:
         prompt = f"""
-        Generate 2 antonym phrase pairs that represent scalar extremes for the concept '{column_name}'.
-        Each pair should use descriptive phrases (e.g., 'completely drained', 'fully charged') rather than single words, to clearly represent the low and high ends of a scale.
-        Format output as a Python list of tuples like this:
-        [("completely drained", "fully charged"), ("unreliable performance", "dependable performance"), ...]
-        Do not wrap the output in markdown or print statements.
+        You are designing expressive semantic scales using emojis to represent levels of the concept '{column_name}'.
+
+        Generate 4 phrase pairs representing low vs. high levels of the concept. 
+        These pairs should map easily to common emoji meanings — they must be **concrete, imageable, and clearly matchable** to emoji descriptions. 
+        Focus on real-world, physical, or emotional imagery that can be **visualized with objects, people, or symbols**. 
+        The antonyms don’t need to be logically perfect — just ensure they strongly anchor the **low** and **high** ends of the concept in ways that emoji embeddings can capture.
+
+        Make sure there's emoji support for the phrases you generate.
+        You can use multi-word phrases. Avoid abstract or vague terms. Think in terms of: “What emoji would show this?”
+
+        Examples:
+        - For 'battery': ("dead", "battery fully charged")
+        - For 'confidence': ("fearful person", "confident posture")
+        - For 'speed': ("snail", "rocket")
+        - For 'popularity': ("single person", "group of people")
+        - For 'temperature': ("snowflake", "flames")
+
+        Format the response as a valid Python list of 2-tuples:
+        [("low phrase", "high phrase"), ("...", "...")]
+
+        Do NOT include markdown, code blocks, or explanation—just return the list.
+
         """
         content = self._call_openrouter(prompt)
-
+        print(content)
         try:
-            # Remove any markdown/code block wrapping
-            content = re.sub(r"```(?:python)?\s*([\s\S]*?)```", r"\1", content, flags=re.IGNORECASE).strip()
-            # Try to extract the list using eval
-            pairs = eval(content)
-            return [tuple(pair) for pair in pairs if isinstance(pair, (list, tuple)) and len(pair) == 2]
+            content = re.sub(r"(?:python)?\\s*([\\s\\S]*?)", r"\1", content, flags=re.IGNORECASE).strip()
+            parsed = ast.literal_eval(content)
+            return [tuple(pair) for pair in parsed if isinstance(pair, (list, tuple)) and len(pair) == 2 and all(isinstance(x, str) for x in pair)]
         except Exception as e:
             print("Failed to parse antonym pairs:", e)
             return []
 
-    def rank_scales_with_llm(self, column_name: str, axis_to_emojis: dict) -> List[str]:
-        options = "\n".join(
-            f"Option {chr(65+i)} (axis: {a} → {b}): {' '.join(emojis)}"
-            for i, ((a, b), emojis) in enumerate(axis_to_emojis.items())
-        )
-        print(options)
-        prompt = f"""
-        You are evaluating emoji scales for the concept '{column_name}'.
-        Below are multiple emoji scales, each created from a semantic antonym axis:
-
-        {options}
-
-        Which one most accurately reflects a gradual transition from low to high for '{column_name}'?
-        Reply with the best option letter only (e.g., A, B, C).
-        """
-        content = self._call_openrouter(prompt).upper()
-        best = content.strip()
-        idx = ord(best) - 65
-        return list(axis_to_emojis.values())[idx] if 0 <= idx < len(axis_to_emojis) else []
+    def filter_axes_by_similarity(self, axes: List[Tuple[str, str]], query: str, threshold=0.25):
+        query_vec = self.model.encode(query, convert_to_tensor=True).to(self.device)
+        good_axes = []
+        for a, b in axes:
+            a_vec = self.model.encode(a, convert_to_tensor=True).to(self.device)
+            b_vec = self.model.encode(b, convert_to_tensor=True).to(self.device)
+            sim_a = util.pytorch_cos_sim(query_vec, a_vec).item()
+            sim_b = util.pytorch_cos_sim(query_vec, b_vec).item()
+            if (sim_a + sim_b) / 2 > threshold:
+                good_axes.append((a, b))
+        return good_axes
 
     def generate_best_llm_scale(self, column_name: str, top_k=20, scale_size=3) -> List[str]:
-        axes = self.get_llm_antonym_pairs(column_name)
+        axes = self.get_llm_antonym_pairs_multi(column_name, num_queries=3)
+        #axes = self.filter_axes_by_similarity(axes, column_name)
         axis_to_emojis = {}
         for axis in axes:
             try:
@@ -136,6 +119,68 @@ class EmojiScaler:
             return []
         return self.rank_scales_with_llm(column_name, axis_to_emojis)
 
+    def generate_scale_with_axis(self, column_name: str, axis_pair: Tuple[str, str], top_k=100, scale_size=5) -> List[str]:
+        query_vec = self.model.encode(column_name, convert_to_tensor=True).to(self.device)
+        a_vec = self.model.encode(axis_pair[0], convert_to_tensor=True).to(self.device)
+        b_vec = self.model.encode(axis_pair[1], convert_to_tensor=True).to(self.device)
+
+        a_vec = a_vec / (a_vec.norm() + 1e-6)
+        b_vec = b_vec / (b_vec.norm() + 1e-6)
+        axis_unit = (b_vec - a_vec) / ((b_vec - a_vec).norm() + 1e-6)
+        midpoint = (a_vec + b_vec) / 2.0
+
+        all_embeddings = torch.stack([
+            torch.nn.functional.normalize(self._to_tensor(x), dim=0)
+            for x in self.emoji_df["embedding"]
+        ])
+        similarities = util.pytorch_cos_sim(query_vec, all_embeddings)[0]
+        top_indices = similarities.topk(top_k).indices.tolist()
+        selected = self.emoji_df.iloc[top_indices].copy()
+
+        selected_embeddings = torch.stack([
+            torch.nn.functional.normalize(self._to_tensor(x), dim=0)
+            for x in selected["embedding"]
+        ])
+
+        centered = selected_embeddings - midpoint
+        projection = torch.matmul(centered, axis_unit)
+        relevance = util.pytorch_cos_sim(query_vec, selected_embeddings)[0]
+        semantic_boost = torch.cosine_similarity(selected_embeddings, b_vec.unsqueeze(0), dim=1)
+
+        norm_proj = (projection - projection.mean()) / (projection.std() + 1e-6)
+        norm_rel = (relevance - relevance.mean()) / (relevance.std() + 1e-6)
+        norm_semantic_boost = (semantic_boost - semantic_boost.mean()) / (semantic_boost.std() + 1e-6)
+
+        final_score = (0.5 * norm_proj + 0.3 * norm_rel + 0.2 * norm_semantic_boost)
+        final_score_np = final_score.detach().cpu().numpy()
+        selected["emoji_text"] = selected["emoji"] + " (" + np.round(final_score_np, 2).astype(str) + ")"
+        selected["score"] = final_score_np.tolist()
+
+        sorted_df = selected.sort_values(by="score", ascending=True).reset_index(drop=True)
+        if len(sorted_df) < scale_size:
+            return sorted_df["emoji_text"].tolist()
+        indices = np.linspace(0, len(sorted_df) - 1, num=scale_size, dtype=int)
+        return sorted_df.iloc[indices]["emoji_text"].tolist()
+
+    def rank_scales_with_llm(self, column_name: str, axis_to_emojis: dict) -> List[str]:
+        options = "\n".join(
+            f"Option {chr(65+i)} {' '.join(emojis)}"
+            for i, (_, emojis) in enumerate(axis_to_emojis.items())
+        )
+        print(options)
+        prompt = f"""
+        Imagine you're designing a visual indicator using emojis for the concept '{column_name}'.
+        Which of these best conveys a meaningful, expressive, and transition from low to high? Make sure the scale is understood by a wide audience.
+        Dont include any special character emojis in the scale. And make sure people can associate the emojis with the concept '{column_name}'.
+
+        {options}
+
+        Reply with the best option letter only (e.g., A, B, C).
+        """
+        content = self._call_openrouter(prompt).upper().strip()
+        idx = ord(content[0]) - 65 if content and content[0].isalpha() else -1
+        return list(axis_to_emojis.values())[idx] if 0 <= idx < len(axis_to_emojis) else []
+
 
 # Example usage:
 scaler = EmojiScaler(
@@ -145,4 +190,3 @@ scaler = EmojiScaler(
 
 print("Best scale for 'battery':", scaler.generate_best_llm_scale("battery"))
 print("Best scale for 'popularity':", scaler.generate_best_llm_scale("popularity"))
-
