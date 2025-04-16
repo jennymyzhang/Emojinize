@@ -1,0 +1,86 @@
+﻿country_code,gold,silver,bronze,country,population,gdp_per_capita,continent,continent_code
+ALG,0,2,0,Algeria,39666519,4206,Africa,AF
+AZE,1,7,10,Azerbaijan,9651349,5496,Europe,EU
+ARG,3,1,0,Argentina,43416755,13431,South America,SA
+AUS,8,11,10,Australia,23781169,56310,Oceania,OC
+AUT,0,0,1,Austria,8611088,43774,Europe,EU
+BAH,1,0,1,Bahamas,388019,22817,North America,NA
+BRN,1,1,0,Bahrain,1377237,22600,Asia,AS
+ARM,1,3,0,Armenia,3017712,3489,Europe,EU
+BEL,2,2,2,Belgium,11285721,40324,Europe,EU
+BRA,7,6,6,Brazil,207847528,8538,South America,SA
+BUL,0,1,2,Bulgaria,7177991,6993,Europe,EU
+BDI,0,1,0,Burundi,11178921,277,Africa,AF
+BLR,1,4,4,Belarus,9513000,5740,Europe,EU
+CAN,4,3,15,Canada,35851774,43248,North America,NA
+CHN,26,18,26,China,1371220000,8027,Asia,AS
+TPE,1,0,2,Taiwan,23618200,22573,Asia,AS
+COL,3,2,3,Colombia,48228704,6056,South America,SA
+CRO,5,3,2,Croatia,4224404,11535,Europe,EU
+CUB,5,2,4,Cuba,11389562,8060,North America,NA
+CZE,1,2,7,Czech Republic,10551219,17548,Europe,EU
+DEN,2,6,7,Denmark,5676002,51989,Europe,EU
+DOM,0,0,1,Dominican Republic,10528391,6468,North America,NA
+ETH,1,2,5,Ethiopia,99390750,619,Africa,AF
+EST,0,0,1,Estonia,1311998,17118,Europe,EU
+FIJ,1,0,0,Fiji,892145,4960,Oceania,OC
+FIN,0,0,1,Finland,5482013,42311,Europe,EU
+FRA,10,18,14,France,66808385,36205,Europe,EU
+GEO,2,1,4,Georgia,3679000,3795,Europe,EU
+GER,17,10,15,Germany,81413145,41313,Europe,EU
+GRE,3,1,2,Greece,10823732,18002,Europe,EU
+GRN,0,1,0,Grenada,106825,9212,North America,NA
+HUN,8,3,4,Hungary,9844686,12363,Europe,EU
+IND,0,1,1,India,1311050527,1598,Asia,AS
+INA,1,2,0,Indonesia,257563815,3346,Asia,AS
+IRI,3,1,4,Iran,79109272,5265,Asia,AS
+IRL,0,2,0,Ireland,4640703,61133,Europe,EU
+ISR,0,0,2,Israel,8380400,35728,Asia,AS
+ITA,8,12,8,Italy,60802085,29957,Europe,EU
+CIV,1,0,1,Cote d'Ivoire,22701556,1398,Africa,AF
+JAM,6,3,2,Jamaica,2725941,5232,North America,NA
+JPN,12,8,21,Japan,126958472,32477,Asia,AS
+KAZ,3,5,10,Kazakhstan,17544126,10509,Europe,EU
+JOR,1,0,0,Jordan,7594547,4940,Asia,AS
+KEN,6,6,1,Kenya,46050302,1376,Africa,AF
+PRK,2,3,2,North Korea,25155317,663,Asia,AS
+KOR,9,3,9,South Korea,50617045,27221,Asia,AS
+LTU,0,1,3,Lithuania,2910199,14147,Europe,EU
+MAS,0,4,1,Malaysia,30331007,9768,Asia,AS
+MEX,0,3,2,Mexico,127017224,9005,North America,NA
+MGL,0,1,1,Mongolia,2959134,3967,Asia,AS
+MAR,0,0,1,Morocco,34377511,2878,Africa,AF
+NED,8,7,4,Netherlands,16936520,44299,Europe,EU
+NZL,4,9,5,New Zealand,4595700,37807,Oceania,OC
+NIG,0,1,0,Niger,19899120,358,Africa,AF
+NGR,0,0,1,Nigeria,182201962,2640,Africa,AF
+NOR,0,0,4,Norway,5195921,74400,Europe,EU
+PHI,0,1,0,Philippines,100699395,2904,Asia,AS
+POL,2,3,6,Poland,37999494,12554,Europe,EU
+POR,0,0,1,Portugal,10348648,19222,Europe,EU
+PUR,1,0,0,Puerto Rico,3474182,30628,North America,NA
+QAT,0,1,0,Qatar,2235355,73653,Asia,AS
+ROM,1,1,2,Romania,19832389,8972,Europe,EU
+RUS,19,17,20,Russia,144096812,9092,Europe,EU
+SCG,2,4,2,Serbia,7098247,5235,Europe,EU
+SIN,1,0,0,Singapore,5535002,52888,Asia,AS
+SVK,2,2,0,Slovakia,5424050,16088,Europe,EU
+VIE,1,1,0,Vietnam,91703800,2111,Asia,AS
+SLO,1,2,1,Slovenia,2063768,20726,Europe,EU
+RSA,2,6,2,South Africa,54956920,5723,Africa,AF
+ESP,7,4,6,Spain,46418269,25831,Europe,EU
+SWE,2,6,3,Sweden,9798871,50579,Europe,EU
+SUI,3,2,2,Switzerland,8286976,80945,Europe,EU
+TJK,1,0,0,Tajikistan,8481855,925,Asia,AS
+THA,2,2,2,Thailand,67959359,5814,Asia,AS
+TRI,0,0,1,Trinidad and Tobago,1360088,17321,North America,NA
+UAE,0,0,1,United Arab Emirates,9156963,40438,Asia,AS
+TUN,0,0,3,Tunisia,11107800,3872,Africa,AF
+TUR,1,3,4,Turkey,78665830,9125,Europe,EU
+UKR,2,5,4,Ukraine,45198200,2114,Europe,EU
+EGY,0,0,3,Egypt,91508084,3614,Africa,AF
+GBR,27,23,17,United Kingdom,65138232,43875,Europe,EU
+USA,46,37,38,United States,321418820,56115,North America,NA
+UZB,4,2,7,Uzbekistan,31299500,2132,Asia,AS
+VEN,0,2,1,Venezuela,31108083,9092,South America,SA
+KOS,1,0,0,Kosovo,1816000,3697,Europe,EU

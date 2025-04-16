@@ -1,0 +1,217 @@
+Year,Title,Genre,Author,AuthorGender,AuthorAge,Pages,Rating,RatingCount,IsBestSeller
+2017,Autumn,Fiction,Ali Smith,female,54,264,3.7,10259,FALSE
+2017,Exit West,Fiction,Mohsin Hamid,male,46,240,3.8,27086,TRUE
+2017,Pachinko,Fiction,Min Jin Lee,female,49,496,4.2,10929,TRUE
+2017,The Power,Fiction,Naomi Alderman,female,43,288,3.9,16655,FALSE
+2017,"Sing, Unburied, Sing",Fiction,Jesmyn Ward,female,41,285,4.1,7033,TRUE
+2017,The Evolution of Beauty: How Darwin's Forgotten Theory of Mate Choice Shapes the Animal World - And Us,Nonfiction,Richard O. Prum,male,56,400,4.1,147,FALSE
+2017,Grant,Nonfiction,Ron Chernow,male,69,1104,4.6,569,TRUE
+2017,Locking Up Our Own: Crime and Punishment in Black America,Nonfiction,James Forman Jr. Jr.,male,50,320,4.3,254,FALSE
+2017,Prairie Fires: The American Dreams of Laura Ingalls Wilder,Nonfiction,Caroline Fraser,female,0,640,4.3,89,FALSE
+2017,Priestdaddy: A Memoir,Nonfiction,Patricia Lockwood,female,35,336,3.9,2415,FALSE
+2016,The Association of Small Bombs,Fiction,Karan Mahajan,male,32,288,3.6,6788,FALSE
+2016,The North Water,Fiction,Ian McGuire,male,52,272,4.0,12646,TRUE
+2016,The Underground Railroad,Fiction,Colson Whitehead,male,47,306,4.0,82601,TRUE
+2016,The Vegetarian,Fiction,Han Kang,female,37,188,3.6,34421,FALSE
+2016,War and Turpentine,Fiction,Stefan Hertmans,male,62,304,3.9,4240,FALSE
+2016,"At the Existentialist Cafe: Freedom, Being, and Apricot Cocktails",Nonfiction,Sarah Bakewell,female,53,440,4.2,2886,FALSE
+2016,Dark Money: The Hidden History of the Billionaires Behind the Rise of the Radical Right,Nonfiction,Jane Mayer,female,61,464,4.3,7622,TRUE
+2016,Evicted: Poverty and Profit in the American City,Nonfiction,Matthew Desmond,male,0,418,4.5,15452,TRUE
+2016,In the Darkroom,Nonfiction,Susan Faludi,female,57,432,4.0,1520,FALSE
+2016,"The Return: Fathers, Sons, and the Land in Between",Nonfiction,Hisham Matar,male,46,288,4.2,2123,FALSE
+2015,The Door,Fiction,Magda Szabó,female,69,272,4.1,8242,FALSE
+2015,A Manual for Cleaning Women: Selected Stories,Fiction,Lucia Berlin,female,-10,432,4.2,7661,TRUE
+2015,Outline,Fiction,Rachel Cusk,female,48,249,3.4,6499,FALSE
+2015,The Sellout,Fiction,Paul Beatty,male,0,289,3.8,25137,TRUE
+2015,"The Story of the Lost Child (The Neapolitan Novels, #4)",Fiction,Elena Ferrante,female,71,480,4.4,27561,TRUE
+2015,Between the World and Me,Nonfiction,Ta-Nehisi Coates,male,40,152,4.4,99500,TRUE
+2015,Empire of Cotton: A Global History,Nonfiction,Sven Beckert,male,0,640,3.8,1311,TRUE
+2015,H is for Hawk,Nonfiction,Helen Macdonald,female,45,300,3.7,37386,FALSE
+2015,The Invention of Nature: Alexander von Humboldt's New World,Nonfiction,Andrea Wulf,female,44,473,4.3,5069,TRUE
+2015,One of Us: The Story of Anders Breivik and the Massacre in Norway,Nonfiction,Åsne Seierstad,female,43,530,4.3,4396,TRUE
+2014,All the Light We Cannot See,Fiction,Anthony Doerr,male,41,531,4.3,530482,TRUE
+2014,Dept. of Speculation,Fiction,Jenny Offill,female,46,179,3.7,24176,FALSE
+2014,Euphoria,Fiction,Lily King,female,51,261,3.8,47683,FALSE
+2014,Family Life,Fiction,Akhil Sharma,male,43,240,3.5,7043,FALSE
+2014,Redeployment,Fiction,Phil Klay,male,31,288,4.0,17903,TRUE
+2014,Can't We Talk about Something More Pleasant?,Nonfiction,Roz Chast,female,59,228,4.1,19551,TRUE
+2014,On Immunity: An Inoculation,Nonfiction,Eula Biss,female,38,205,3.9,6303,TRUE
+2014,Penelope Fitzgerald: A Life,Nonfiction,Hermione Lee,female,66,508,4.0,299,FALSE
+2014,The Sixth Extinction: An Unnatural History,Nonfiction,Elizabeth Kolbert,female,53,319,4.1,23956,TRUE
+2014,"Thirteen Days in September: Carter, Begin, and Sadat at Camp David",Nonfiction,Lawrence Wright,male,66,368,4.1,1891,TRUE
+2013,Americanah,Fiction,Chimamanda Ngozi Adichie,female,36,477,4.3,131199,TRUE
+2013,The Flamethrowers,Fiction,Rachel Kushner,female,45,383,3.5,14824,TRUE
+2013,The Goldfinch,Fiction,Donna Tartt,female,50,771,3.9,456286,TRUE
+2013,Life After Life,Fiction,Kate Atkinson,female,62,531,3.7,157127,TRUE
+2013,Tenth of December,Fiction,George Saunders,male,54,272,4.0,42918,TRUE
+2013,"After the Music Stopped: The Financial Crisis, the Response, and the Work Ahead",Nonfiction,Alan S. Blinder,male,67,496,4.1,1144,TRUE
+2013,Days of Fire: Bush and Cheney in the White House,Nonfiction,Peter Baker,male,46,816,4.1,2113,TRUE
+2013,Five Days at Memorial: Life and Death in a Storm-Ravaged Hospital,Nonfiction,Sheri Fink,female,0,558,3.9,17057,TRUE
+2013,The Sleepwalkers: How Europe Went to War in 1914,Nonfiction,Christopher Clark,male,52,682,4.2,4930,TRUE
+2013,Wave,Nonfiction,Sonali Deraniyagala,female,49,274,3.7,13049,TRUE
+2012,"Bring Up the Bodies (Thomas Cromwell, #2)",Fiction,Hilary Mantel,female,60,407,4.3,51146,TRUE
+2012,Building Stories,Fiction,Chris Ware,male,45,260,4.3,5374,TRUE
+2012,A Hologram for the King,Fiction,Dave Eggers,male,42,312,3.3,22613,TRUE
+2012,NW,Fiction,Zadie Smith,female,37,296,3.4,23542,FALSE
+2012,The Yellow Birds,Fiction,Kevin Powers,male,31,226,3.7,19954,TRUE
+2012,"Behind the Beautiful Forevers: Life, Death, and Hope in a Mumbai Undercity",Nonfiction,Katherine Boo,female,48,256,4.0,76075,TRUE
+2012,"Far from the Tree: Parents, Children, and the Search for Identity",Nonfiction,Andrew Solomon,male,49,976,4.3,13075,TRUE
+2012,"The Passage of Power (The Years of Lyndon Johnson, #4)",Nonfiction,Robert A. Caro,male,76,712,4.4,9410,TRUE
+2012,The Patriarch: The Remarkable Life and Turbulent Times of Joseph P. Kennedy,Nonfiction,David Nasaw,male,67,868,4.0,2770,TRUE
+2012,Why Does the World Exist?: An Existential Detective Story,Nonfiction,Jim Holt,male,46,279,3.8,5060,TRUE
+2011,The Art of Fielding,Fiction,Chad Harbach,male,37,512,4.0,88521,TRUE
+2011,11/22/63,Fiction,Stephen King,male,64,849,4.3,298738,TRUE
+2011,Swamplandia!,Fiction,Karen Russell,female,29,323,3.2,43049,TRUE
+2011,Ten Thousand Saints,Fiction,Eleanor Henderson,female,0,388,3.5,6119,FALSE
+2011,The Tiger's Wife,Fiction,Téa Obreht,female,25,338,3.4,75777,TRUE
+2011,Arguably: Selected Essays,Nonfiction,Christopher Hitchens,male,61,816,4.2,7389,FALSE
+2011,The Boy in the Moon: A Father's Journey to Understand His Extraordinary Son,Nonfiction,Ian Brown,male,46,304,3.9,1485,FALSE
+2011,Malcolm X: A Life of Reinvention,Nonfiction,Manning Marable,male,61,608,4.2,11675,TRUE
+2011,"Thinking, Fast and Slow",Nonfiction,Daniel Kahneman,male,78,499,4.1,145725,TRUE
+2011,A World on Fire: Britain's Crucial Role in the American Civil War,Nonfiction,Amanda Foreman,female,42,988,4.0,1690,TRUE
+2010,Freedom,Fiction,Jonathan Franzen,male,51,562,3.7,129779,TRUE
+2010,The New Yorker Stories,Fiction,Ann Beattie,female,62,528,3.8,835,FALSE
+2010,Room,Fiction,Emma Donoghue,female,41,321,4.0,549432,TRUE
+2010,Selected Stories,Fiction,William Trevor,male,82,576,4.3,347,FALSE
+2010,A Visit from the Goon Squad,Fiction,Jennifer Egan,female,48,288,3.6,138608,TRUE
+2010,Apollo's Angels: A History of Ballet,Nonfiction,Jennifer Homans,female,0,643,3.9,1259,TRUE
+2010,Cleopatra: A Life,Nonfiction,Stacy Schiff,female,45,302,3.6,76495,TRUE
+2010,The Emperor of All Maladies: A Biography of Cancer,Nonfiction,Siddhartha Mukherjee,male,39,571,4.3,52792,TRUE
+2010,"Finishing the Hat: Collected Lyrics, 1954-1981, With Attendant Comments, Principles, Heresies, Grudges, Whines, and Anecdotes",Nonfiction,Stephen Sondheim,male,80,421,4.5,1438,TRUE
+2010,The Warmth of Other Suns: The Epic Story of America's Great Migration,Nonfiction,Isabel Wilkerson,female,49,622,4.3,34050,TRUE
+2009,Both Ways is the Only Way I Want It,Fiction,Maile Meloy,female,37,240,3.8,4479,FALSE
+2009,Chronic City,Fiction,Jonathan Lethem,male,45,467,3.5,7565,FALSE
+2009,A Gate at the Stairs,Fiction,Lorrie Moore,female,53,322,3.1,15140,FALSE
+2009,Half Broke Horses,Fiction,Jeannette Walls,female,48,272,4.0,118529,TRUE
+2009,A Short History of Women,Fiction,Kate Walbert,female,48,256,3.1,2589,FALSE
+2009,The Age of Wonder: How the Romantic Generation Discovered the Beauty and Terror of Science,Nonfiction,Richard Holmes,male,63,380,4.0,7247,FALSE
+2009,The Good Soldiers,Nonfiction,David Finkel,male,53,287,4.2,6042,TRUE
+2009,Lit,Nonfiction,Mary Karr,female,54,400,3.9,19350,TRUE
+2009,Lords of Finance: The Bankers Who Broke the World,Nonfiction,Liaquat Ahamed,male,56,564,4.0,9658,FALSE
+2009,Raymond Carver: A Writer's Life,Nonfiction,Carol Sklenicka,female,62,592,4.2,552,FALSE
+2008,Dangerous Laughter,Fiction,Steven Millhauser,male,64,244,3.8,1899,FALSE
+2008,A Mercy,Fiction,Toni Morrison,female,77,167,3.7,15973,FALSE
+2008,Netherland,Fiction,Joseph O'Neill O'Neill,male,44,269,3.4,15659,FALSE
+2008,2666,Fiction,Roberto Bolaño,male,-10,1126,4.2,22040,FALSE
+2008,Unaccustomed Earth,Fiction,Jhumpa Lahiri,female,40,352,4.1,67166,FALSE
+2008,The Dark Side: The Inside Story of How the War on Terror Turned Into a War on American Ideals,Nonfiction,Jane Mayer,female,54,335,4.2,3287,FALSE
+2008,The Forever War,Nonfiction,Dexter Filkins,male,47,342,4.1,7783,FALSE
+2008,Nothing to Be Frightened Of,Nonfiction,Julian Barnes,male,62,243,3.8,2946,FALSE
+2008,This Republic of Suffering: Death and the American Civil War,Nonfiction,Drew Gilpin Faust,female,60,346,4.0,4617,FALSE
+2008,The World Is What It Is: The Authorized Biography of V.S. Naipaul,Nonfiction,Patrick French,male,42,554,4.1,347,FALSE
+2007,Man Gone Down,Fiction,Michael Thomas,male,40,432,3.2,1292,FALSE
+2007,Out Stealing Horses,Fiction,Per Petterson,male,50,258,3.8,22748,FALSE
+2007,The Savage Detectives,Fiction,Roberto Bolaño,male,45,577,4.1,23245,FALSE
+2007,Then We Came to the End,Fiction,Joshua Ferris,male,33,387,3.5,28033,FALSE
+2007,Tree of Smoke,Fiction,Denis Johnson,male,55,614,3.6,7930,FALSE
+2007,Imperial Life in the Emerald City: Inside Iraq's Green Zone,Fiction,Rajiv Chandrasekaran,male,33,320,4.0,4905,FALSE
+2007,Little Heathens: Hard Times and High Spirits on an Iowa Farm During the Great Depression,Nonfiction,Mildred Armstrong Kalish,female,85,304,3.7,5063,FALSE
+2007,The Nine: Inside the Secret World of the Supreme Court,Nonfiction,Jeffrey Toobin,male,47,384,4.1,13553,FALSE
+2007,The Ordeal of Elizabeth Marsh: A Woman in World History,Nonfiction,Linda Colley,female,57,363,3.4,349,FALSE
+2007,The Rest Is Noise: Listening to the Twentieth Century,Nonfiction,Alex Ross,male,37,640,4.1,9872,FALSE
+2006,Absurdistan,Fiction,Gary Shteyngart,male,33,333,3.3,11686,FALSE
+2006,The Collected Stories,Fiction,Amy Hempel,female,54,409,4.3,5618,FALSE
+2006,The Emperor's Children,Fiction,Claire Messud,female,40,431,2.9,17490,FALSE
+2006,The Lay of the Land,Fiction,Richard Ford,male,62,496,3.9,3381,FALSE
+2006,Special Topics in Calamity Physics,Fiction,Marisha Pessl,female,28,514,3.7,34083,FALSE
+2006,Falling Through the Earth,Nonfiction,Danielle Trussoni,female,32,240,3.7,746,FALSE
+2006,The Looming Tower: Al-Qaeda and the Road to 9/11,Nonfiction,Lawrence Wright,male,58,373,4.4,14847,FALSE
+2006,"Mayflower: A Story of Courage, Community, and War",Nonfiction,Nathaniel Philbrick,male,50,461,3.9,27199,FALSE
+2006,The Omnivore's Dilemma: A Natural History of Four Meals,Nonfiction,Michael Pollan,male,51,451,4.2,146568,FALSE
+2006,The Places in Between,Nonfiction,Rory Stewart,male,31,299,3.9,11845,FALSE
+2005,Kafka on the Shore,Fiction,Haruki Murakami,male,53,467,4.1,191963,FALSE
+2005,On Beauty,Fiction,Zadie Smith,female,30,445,3.7,49187,FALSE
+2005,Prep,Fiction,Curtis Sittenfeld,male,30,420,3.4,52888,FALSE
+2005,Saturday,Fiction,Ian McEwan,male,57,289,3.6,48976,FALSE
+2005,Veronica,Fiction,Mary Gaitskill,female,51,240,3.4,4300,FALSE
+2005,The Assassins' Gate: America in Iraq,Nonfiction,George Packer,male,45,512,4.0,2432,FALSE
+2005,De Kooning: An American Master,Nonfiction,Mark Stevens,male,55,732,4.1,2410,FALSE
+2005,The Lost Painting,Nonfiction,Jonathan Harr,male,57,320,3.7,19326,TRUE
+2005,Postwar: A History of Europe Since 1945,Nonfiction,Tony Judt,male,52,933,4.3,6652,FALSE
+2005,The Year of Magical Thinking,Nonfiction,Joan Didion,female,71,227,3.9,98200,FALSE
+2003,The Bounty: The True Story of the Mutiny on the Bounty,Nonfiction,Caroline Alexander,female,36,552,4.0,3388,FALSE
+2003,Brick Lane,Fiction,Monica Ali,female,35,432,3.4,23301,FALSE
+2003,Drop City,Fiction,T.C. Boyle,male,54,497,3.8,9927,FALSE
+2003,The Fortress of Solitude,Fiction,Jonathan Lethem,male,40,528,3.9,17976,FALSE
+2003,Khrushchev: The Man and His Era,Nonfiction,William Taubman,male,62,896,4.0,828,FALSE
+2003,The Known World,Fiction,Edward P. Jones,male,52,432,3.8,29241,FALSE
+2003,Living to Tell the Tale,Fiction, Gabriel García Márquez,male,75,496,4.0,7221,FALSE
+2003,"Random Family: Love, Drugs, Trouble, and Coming of Age in the Bronx",Nonfiction,Adrian Nicole LeBlanc,female,39,432,4.2,9510,FALSE
+2003,Samuel Pepys: The Unequalled Self,Nonfiction,Claire Tomalin,female,69,528,4.2,1839,FALSE
+2002,Anthony Blunt: His Lives,Nonfiction,Miranda Carter,female,37,592,4.1,144,FALSE
+2002,Atonement,Fiction,Ian McEwan,male,53,351,3.9,363350,TRUE
+2002,Bad Blood,Nonfiction,Lorna Sage,female,57,281,3.5,968,FALSE
+2002,Middlesex,Fiction,Jeffrey Eugenides,male,42,529,4.0,504667,FALSE
+2002,Paris 1919: Six Months That Changed the World,Nonfiction,Margaret MacMillan,female,58,570,4.1,8080,FALSE
+2002,Roscoe,Fiction,William Kennedy,male,74,304,3.8,381,FALSE
+2002,Seeing in the Dark : How Amateur Astronomers Are Discovering the Wonders of the Universe,Nonfiction,Timothy Ferris,male,57,400,4.1,341,FALSE
+2001,Austerlitz,Fiction,W.G. Sebald,male,57,415,4.0,9757,FALSE
+2001,Borrowed Finery: A Memoir,Nonfiction,Paula Fox,female,77,224,3.6,493,FALSE
+2001,The Corrections,Fiction,Jonathan Franzen,male,42,653,3.8,130210,FALSE
+2001,"Hateship, Friendship, Courtship, Loveship, Marriage: Stories",Fiction,Alice Munro,female,69,323,4.1,12639,TRUE
+2001,John Adams,Nonfiction,David McCullough,male,67,751,4.1,217155,FALSE
+2001,John Henry Days,Fiction,Colson Whitehead,male,31,400,3.7,1677,FALSE
+2001,The Metaphysical Club,Nonfiction,Louis Menand,male,49,560,4.1,3455,FALSE
+2001,True History of the Kelly Gang,Fiction,Peter Carey,male,57,384,3.8,15803,FALSE
+2001,Uncle Tungsten,Nonfiction,Oliver Sacks,male,67,337,4.0,4171,FALSE
+2000,Being Dead,Fiction,Jim Crace,male,53,196,3.7,3878,FALSE
+2000,Beowulf,Fiction,Seamus Heaney,male,62,213,3.4,182900,FALSE
+2000,Genome: the Autobiography of a Species in 23 Chapters,Nonfiction,Matt Ridley,male,41,344,4.0,18695,FALSE
+2000,Gertrude and Claudius,Fiction,John Updike,male,68,224,3.5,1793,FALSE
+2000,A Heartbreaking Work of Staggering Genius,Nonfiction,Dave Eggers,male,30,485,3.7,148984,TRUE
+2000,"The Human Stain (The American Trilogy, #3)",Fiction,Philip Roth,male,67,384,3.8,25789,FALSE
+2000,"One Palestine, Complete: Jews and Arabs Under the British Mandate",Nonfiction,Tom Segev,male,54,640,3.9,384,FALSE
+2000,Rimbaud: A Biography,Nonfiction,Graham Robb,male,42,592,4.2,769,FALSE
+2000,"Way Out There in the Blue: Reagan, Star Wars and the End of the Cold War",Nonfiction,Frances FitzGerald,female,59,592,3.7,87,FALSE
+2000,White Teeth,Fiction,Zadie Smith,female,24,448,3.7,89510,FALSE
+1999,"An Affair of State: The Investigation, Impeachment, and Trial of President Clinton",Nonfiction,Richard A. Posner,male,60,288,3.4,46,FALSE
+1999,Close Range,Fiction,Annie Proulx,female,63,285,4.0,12198,FALSE
+1999,"Coleridge: Darker Reflections, 1804-1834",Nonfiction,Richard Holmes,male,49,656,4.5,138,FALSE
+1999,Disgrace,Fiction,J.M. Coetzee,male,59,220,3.8,61617,FALSE
+1999,The Feeling of What Happens: Body and Emotion in the Making of Consciousness,Nonfiction,Antoinio R. Damasio,male,55,400,4.0,2795,FALSE
+1999,The First World War,Nonfiction,John Keegan,male,64,475,4.0,9577,FALSE
+1999,Headlong,Fiction,Michael Frayn,male,65,400,3.6,2543,FALSE
+1999,Morgan: American Financier,Nonfiction,Jean Strouse,female,54,816,3.9,643,FALSE
+1999,Reading the Holocaust,Nonfiction,Inga Clendinnen,female,64,238,4.0,107,FALSE
+1999,Secrets of the Flesh: A Life of Colette,Nonfiction,Judith Thurman,female,53,660,3.9,1173,FALSE
+1999,A Star Called Henry,Fiction,Roddy Doyle,male,41,342,3.8,6829,FALSE
+1998,Birds of America,Fiction,Lorrie Moore,female,41,291,4.1,11528,FALSE
+1998,Cloudsplitter,Fiction,Russell Banks,male,58,758,3.9,3355,FALSE
+1998,Life: A Natural History of the First Four Billion Years of Life on Earth,Nonfiction,Richard Fortey,male,51,400,4.0,2319,FALSE
+1998,The Love of a Good Woman,Fiction,Alice Munro,female,66,352,4.0,5616,FALSE
+1998,The Poisonwood Bible,Fiction,Barbara Kingsolver,female,43,546,4.0,559572,TRUE
+1998,Preston Falls,Fiction,David Gates,male,51,352,3.7,478,FALSE
+1998,"Titan: The Life of John D. Rockefeller, Sr.",Nonfiction,Ron Chernow,male,48,832,4.2,8992,FALSE
+1998,To End a War: The Conflict in Yugoslavia--America's Inside Story--Negotiating with Milosevic (Modern Library Paperbacks),Nonfiction,Richard Holbrooke,male,57,456,4.0,390,FALSE
+1998,"The Unknown Matisse, 1869-1908",Nonfiction,Hilary Spurling,female,59,512,4.2,382,FALSE
+1998,Victor Hugo: A Biography,Nonfiction,Graham Robb,male,39,720,4.1,122,FALSE
+1998,We Wish to Inform You That Tomorrow We Will Be Killed with Our Families,Nonfiction,Philip Gourevitch,male,38,356,4.3,19201,FALSE
+1997,"American Pastoral (The American Trilogy, #1)",Fiction,Philip Roth,male,64,432,3.9,44123,FALSE
+1997,American Scripture: Making the Declaration of Independence,Nonfiction,Pauline Maier,female,59,336,4.0,822,FALSE
+1997,The Blue Flower,Fiction,Penelope Fitzgerald,female,78,226,3.5,3128,FALSE
+1997,Huxley: From Devil's Disciple To Evolution's High Priest,Nonfiction,Adrian J. Desmond,male,48,848,4.2,46,FALSE
+1997,Into Thin Air: A Personal Account of the Mount Everest Disaster,Nonfiction,Jon Krakauer,male,43,337,4.1,299780,TRUE
+1997,Mason & Dixon,Fiction,Thomas Pynchon,male,60,773,4.0,7410,FALSE
+1997,The Puttermesser Papers,Fiction,Cynthia Ozick,female,69,256,3.6,944,FALSE
+1997,Toward the End of Time,Fiction,John Updike,male,65,352,3.3,893,FALSE
+1997,Underworld,Fiction,Don DeLillo,male,60,827,3.9,22107,FALSE
+1997,Virginia Woolf,Nonfiction,Hermione Lee,female,49,893,4.2,2560,FALSE
+1997,The Whole Shebang: A State-of-the-Universe(s) Report,Nonfiction,Timothy Ferris,male,53,400,4.0,1879,FALSE
+1996,After Rain,Fiction,William Trevor,male,68,212,4.2,1072,FALSE
+1996,"Angela's Ashes (Frank McCourt, #1)",Nonfiction,Frank McCourt,male,65,432,4.1,415178,FALSE
+1996,Bad Land: An American Romance,Nonfiction,Jonathan Raban,male,43,384,4.0,1072,FALSE
+1996,Collected Stories of Mavis Gallant,Fiction,Mavis Gallant,female,73,887,4.5,119,FALSE
+1996,"The Life of Nelson A. Rockefeller: Worlds to Conquer, 1908-1958",Nonfiction,Cary Reich,male,47,896,3.9,25,FALSE
+1996,The Moor's Last Sigh,Fiction,Salman Rushdie,male,48,434,3.9,10653,FALSE
+1996,Selected Stories,Fiction,Alice Munro,female,62,688,4.3,5357,TRUE
+1996,The Song Of The Dodo: Island Biogeography In An Age Of Extinctions,Nonfiction,David Quammen,male,48,704,4.3,5705,FALSE
+2004,"Gilead (Gilead, #1)",Fiction,Marilynne Robinson,female,61,247,3.8,57827,FALSE
+2004,The Master,Fiction,Colm Tóibín,male,49,339,3.8,7234,FALSE
+2004,The Plot Against America,Fiction,Philip Roth,male,72,391,3.7,28811,FALSE
+2004,Runaway,Fiction,Alice Munro,female,72,335,4.0,15693,FALSE
+2004,Snow,Fiction,Orhan Pamuk,male,50,463,3.5,30203,FALSE
+2004,War Trash,Fiction,Ha Jin,male,48,368,3.8,2788,FALSE
+2004,Alexander Hamilton,Nonfiction,Ron Chernow,male,55,731,4.3,49615,TRUE
+2004,"Chronicles, Vol. 1",Nonfiction,Bob Dylan,male,63,320,4.0,37762,FALSE
+2004,Washington's Crossing,Nonfiction,David Hackett Fischer,male,68,564,4.1,10899,FALSE
+2004,Will in the World: How Shakespeare Became Shakespeare,Nonfiction,Stephen Greenblatt,male,60,464,3.9,6550,FALSE
