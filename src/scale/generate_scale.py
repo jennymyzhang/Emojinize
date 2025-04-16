@@ -47,7 +47,7 @@ class EmojiScaler:
 
     def get_llm_antonym_pairs_multi(self, column_name: str, num_queries=3) -> List[Tuple[str, str]]:
         all_pairs = []
-        for _ in range(num_queries):
+        for _ in range(1):
             all_pairs.extend(self._get_llm_antonym_pairs_once(column_name))
         seen = set()
         deduped = []
@@ -60,33 +60,48 @@ class EmojiScaler:
 
     def _get_llm_antonym_pairs_once(self, column_name: str) -> List[Tuple[str, str]]:
         prompt = f"""
-        You are designing expressive semantic scales using emojis to represent levels of the concept '{column_name}'.
+        You are creating a semantic scale for the concept '{column_name}', using emojis to represent low and high levels of the concept.
 
-        Generate 4 phrase pairs representing low vs. high levels of the concept. 
-        These pairs should map easily to common emoji meanings — they must be **concrete, imageable, and clearly matchable** to emoji descriptions. 
-        Focus on real-world, physical, or emotional imagery that can be **visualized with objects, people, or symbols**. 
-        The antonyms don’t need to be logically perfect — just ensure they strongly anchor the **low** and **high** ends of the concept in ways that emoji embeddings can capture.
+        Your goal is to generate 10 pairs of phrases. Each pair must:
+        - Represent **low vs. high** states of the concept.
+        - Be **extremely concrete, literal, and visual**.
+        - Use **direct, emotionally or physically expressive language** (e.g., "crying face", "heartbroken", "thumbs up").
+        - Be **easily representable with standard emojis**, such that even a simple emoji-matching algorithm could assign appropriate emojis to each phrase.
 
-        Make sure there's emoji support for the phrases you generate.
-        You can use multi-word phrases. Avoid abstract or vague terms. Think in terms of: “What emoji would show this?”
+        **Absolutely avoid**:
+        - Metaphors, symbolic phrases, cultural references, or social situations.
+        - Words like "forgotten", "quiet room", "city festival", "fading star", "hidden talent", etc.
 
-        Examples:
-        - For 'battery': ("dead", "battery fully charged")
-        - For 'confidence': ("fearful person", "confident posture")
-        - For 'speed': ("snail", "rocket")
-        - For 'popularity': ("single person", "group of people")
-        - For 'temperature': ("snowflake", "flames")
+        **Use phrases that are already similar to common emoji names or emoji alt-text**, such as:
+        - "crying face"
+        - "broken heart"
+        - "red heart"
+        - "thumbs down"
+        - "smiling face"
+        - "fire"
+        - "ice cube"
+        - "angry face"
+        - "party popper"
+        - "clapping hands"
 
-        Format the response as a valid Python list of 2-tuples:
+        **Examples**:
+        - For 'love': ("broken heart", "red heart")
+        - For 'emotion': ("sad face", "smiling face")
+        - For 'approval': ("thumbs down", "thumbs up")
+        - For 'heat': ("ice cube", "fire")
+
+        Now generate 10 such **low-high** phrase pairs for '{column_name}' using this approach.
+
+        Return only a valid Python list of 2-tuples:
         [("low phrase", "high phrase"), ("...", "...")]
-
-        Do NOT include markdown, code blocks, or explanation—just return the list.
-
         """
+
         content = self._call_openrouter(prompt)
         print(content)
         try:
-            content = re.sub(r"(?:python)?\\s*([\\s\\S]*?)", r"\1", content, flags=re.IGNORECASE).strip()
+            if content.startswith("```"):
+                content = re.sub(r"^```(?:python)?\n", "", content)
+                content = re.sub(r"\n```$", "", content)
             parsed = ast.literal_eval(content)
             return [tuple(pair) for pair in parsed if isinstance(pair, (list, tuple)) and len(pair) == 2 and all(isinstance(x, str) for x in pair)]
         except Exception as e:
@@ -105,6 +120,8 @@ class EmojiScaler:
                 good_axes.append((a, b))
         return good_axes
 
+    
+
     def generate_best_llm_scale(self, column_name: str, top_k=20, scale_size=3) -> List[str]:
         axes = self.get_llm_antonym_pairs_multi(column_name, num_queries=3)
         #axes = self.filter_axes_by_similarity(axes, column_name)
@@ -118,6 +135,23 @@ class EmojiScaler:
         if not axis_to_emojis:
             return []
         return self.rank_scales_with_llm(column_name, axis_to_emojis)
+
+    def _closest_emoji(self, phrase: str, exclude: List[str] = []) -> str:
+        phrase_vec = self.model.encode(phrase, convert_to_tensor=True).to(self.device)
+        all_embeddings = torch.stack([
+            torch.nn.functional.normalize(self._to_tensor(x), dim=0)
+            for x in self.emoji_df["embedding"]
+        ])
+        similarities = util.pytorch_cos_sim(phrase_vec, all_embeddings)[0]
+
+        # Mask out excluded emojis
+        for i, emoji in enumerate(self.emoji_df["emoji"]):
+            if emoji in exclude:
+                similarities[i] = -float("inf")
+
+        idx = similarities.argmax().item()
+        return self.emoji_df.iloc[idx]["emoji"]
+
 
     def generate_scale_with_axis(self, column_name: str, axis_pair: Tuple[str, str], top_k=100, scale_size=5) -> List[str]:
         query_vec = self.model.encode(column_name, convert_to_tensor=True).to(self.device)
@@ -157,10 +191,22 @@ class EmojiScaler:
         selected["score"] = final_score_np.tolist()
 
         sorted_df = selected.sort_values(by="score", ascending=True).reset_index(drop=True)
+
+        # ---- FORCED ENDPOINTS ----
         if len(sorted_df) < scale_size:
             return sorted_df["emoji_text"].tolist()
-        indices = np.linspace(0, len(sorted_df) - 1, num=scale_size, dtype=int)
-        return sorted_df.iloc[indices]["emoji_text"].tolist()
+
+        low_emoji = self._closest_emoji(axis_pair[0])
+        high_emoji = self._closest_emoji(axis_pair[1], exclude=[low_emoji])
+        num_middle = scale_size - 2
+        if num_middle > 0:
+            indices = np.linspace(1, len(sorted_df) - 2, num=num_middle, dtype=int)
+            middle = sorted_df.iloc[indices]["emoji"].tolist()
+        else:
+            middle = []
+
+        return [low_emoji] + middle + [high_emoji]
+
 
     def rank_scales_with_llm(self, column_name: str, axis_to_emojis: dict) -> List[str]:
         options = "\n".join(
