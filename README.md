@@ -1,4 +1,4 @@
-# 🌐 Emoji Annotation Toolkit
+# 🌐 Emoji Annotation
 
 This project generates emoji-based annotations for tabular data, including:
 
@@ -12,6 +12,8 @@ This project generates emoji-based annotations for tabular data, including:
 ### Install requirements
 
 ```bash
+python3 -m venv .venv
+source .venv/bin.activate
 pip install -r requirements.txt
 ```
 
@@ -20,11 +22,12 @@ pip install -r requirements.txt
 ### 1. Annotate a CSV with emojis
 
 ```bash
+cd src/emoji_data
 python generate_emojis.py \
   --input_csv ../data/my_table.csv \
   --output_json ../results/annotated.json \
   --top_k 5
-
+```
 The input CSV should have:
 
 - **Top-left cell**: table description  
@@ -47,7 +50,7 @@ python generate_emojis.py \
   --input_csv ../data/my_table.csv \
   --output_json ../results/annotated.json \
   --top_k 5
-
+```
 ### 2. generate_best_llm_scale(column_name)
 **File: ** `generate_scale.py`
 **Purpose: **
@@ -59,7 +62,7 @@ from scale.generate_scale import EmojiScaler
 scaler = EmojiScaler()
 scales = scaler.generate_best_llm_scale("Temperature")
 print(scales)
-
+```
 ### 3. `find_emojis_for_each_keyword()`
 **File:** `generate_emoji_via_embedding.py`  
 **Purpose:**  
@@ -87,21 +90,6 @@ Matches a query string to relevant emojis using:
 - `keyword_weight` (`float`): weight for keyword embedding match
 - `top_k` (`int`): number of top results to return
 
----
-
-#### 📤 Output
-A dictionary mapping the LLM-enhanced description to a list of emoji match dicts:
-
-```python
-{
-  "Amazon is a company known for delivery boxes, warehouses, and online shopping": [
-    {"emoji": "📦", "similarity": 0.83, "description": "...", "keywords": "..."},
-    {"emoji": "🚚", "similarity": 0.77, ...},
-    ...
-  ]
-}
-
-
 #### Run From CLI
 
 ```bash
@@ -110,4 +98,4 @@ python generate_emoji_via_embedding.py \
   --top_k 5 \
   --desc_weight 0.2 \
   --keyword_weight 0.8
-
+```
