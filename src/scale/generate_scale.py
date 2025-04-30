@@ -1,3 +1,4 @@
+# Imports
 import pandas as pd
 from sentence_transformers import SentenceTransformer, util
 import numpy as np
@@ -9,28 +10,35 @@ import ast
 import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
+# Constants for OpenRouter API access
 OPENROUTER_API_KEY = "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"
 OPENROUTER_API_URL = "https://openrouter.ai/api/v1/chat/completions"
 LLM_MODEL = "openai/gpt-4o-mini"
 
+# EmojiScaler class builds emoji scales for numerical data based on low/high semantic axes
 class EmojiScaler:
     def __init__(self, emoji_csv_path="../data/emoji_data_with_descriptions.csv", 
                  embedding_path="../data/emoji_description_embeddings.npy"):
+        # Load emoji metadata and embeddings
         self.emoji_df = pd.read_csv(emoji_csv_path)
         self.model = SentenceTransformer("paraphrase-mpnet-base-v2")
         self.device = torch.device("mps" if torch.backends.mps.is_available() else "cpu")
         description_embeddings = np.load(embedding_path)
         self.emoji_df["embedding"] = list(description_embeddings)
+
+        # Normalize all emoji embeddings for cosine similarity
         self.all_embeddings = torch.stack([
             torch.nn.functional.normalize(self._to_tensor(x), dim=0)
             for x in self.emoji_df["embedding"]
         ])
 
+    # Helper to convert numpy arrays to torch tensors on the appropriate device
     def _to_tensor(self, x):
         if isinstance(x, torch.Tensor):
             return x.detach().float().to(self.device)
         return torch.from_numpy(x).float().to(self.device)
 
+    # Call OpenRouter LLM with prompt and return response
     def _call_openrouter(self, prompt: str) -> str:
         headers = {
             "Authorization": f"Bearer {OPENROUTER_API_KEY}",
@@ -41,8 +49,8 @@ class EmojiScaler:
             "messages": [{"role": "user", "content": prompt}],
             "temperature": 0.5
         }
-        response = requests.post(OPENROUTER_API_URL, headers=headers, json=body, timeout=15)
 
+        response = requests.post(OPENROUTER_API_URL, headers=headers, json=body, timeout=15)
         if response.status_code != 200:
             raise ValueError(f"LLM call failed: {response.status_code} - {response.text}")
 
@@ -52,10 +60,12 @@ class EmojiScaler:
 
         return response_json["choices"][0]["message"]["content"].strip()
 
+    # Generate multiple sets of antonym pairs from the LLM
     def get_llm_antonym_pairs_multi(self, column_name: str, num_queries=3) -> List[Tuple[str, str]]:
         all_pairs = []
-        for _ in range(1):
+        for _ in range(1):  # hardcoded to one call for now
             all_pairs.extend(self._get_llm_antonym_pairs_once(column_name))
+        # Deduplicate pairs
         seen = set()
         deduped = []
         for a, b in all_pairs:
@@ -65,6 +75,7 @@ class EmojiScaler:
                 seen.add(key)
         return deduped
 
+    # Single OpenRouter call to get 10 antonym pairs for a concept
     def _get_llm_antonym_pairs_once(self, column_name: str) -> List[Tuple[str, str]]:
         prompt = f"""
         You are creating a semantic scale for the concept '{column_name}', using emojis to represent low and high levels of the concept.
@@ -105,15 +116,18 @@ class EmojiScaler:
 
         content = self._call_openrouter(prompt)
         try:
+            # Clean code-block markdown if present
             if content.startswith("```"):
                 content = re.sub(r"^```(?:python)?\n", "", content)
                 content = re.sub(r"\n```$", "", content)
+            # Convert string to Python list
             parsed = ast.literal_eval(content)
             return [tuple(pair) for pair in parsed if isinstance(pair, (list, tuple)) and len(pair) == 2 and all(isinstance(x, str) for x in pair)]
         except Exception as e:
             print("Failed to parse antonym pairs:", e)
             return []
 
+    # Filter axes based on how semantically close each phrase is to the column name
     def filter_axes_by_similarity(self, axes: List[Tuple[str, str]], query: str, threshold=0.25):
         query_vec = self.model.encode(query, convert_to_tensor=True).to(self.device)
         good_axes = []
@@ -126,10 +140,9 @@ class EmojiScaler:
                 good_axes.append((a, b))
         return good_axes
 
-
+    # Generate many candidate emoji scales and return top ones ranked by LLM
     def generate_best_llm_scale(self, column_name: str, top_k=20, scale_size=3, top_n=10) -> List[List[str]]:
         axes = self.get_llm_antonym_pairs_multi(column_name, num_queries=1)
-
         all_candidates = []
 
         def worker(axis):
@@ -152,17 +165,15 @@ class EmojiScaler:
 
         return self.rank_all_scales_with_llm(column_name, all_candidates, top_n)
 
-
+    # Find the closest emojis to a phrase based on cosine similarity
     def _closest_emoji_list(self, phrase: str, k: int = 5, exclude: List[str] = []) -> List[str]:
         if not hasattr(self, "_phrase_cache"):
             self._phrase_cache = {}
-
         if phrase not in self._phrase_cache:
             self._phrase_cache[phrase] = self.model.encode(phrase, convert_to_tensor=True).to(self.device)
 
         phrase_vec = self._phrase_cache[phrase]
         similarities = util.pytorch_cos_sim(phrase_vec, self.all_embeddings)[0].cpu().numpy()
-
         emoji_list = self.emoji_df["emoji"].tolist()
         topk_indices = np.argpartition(-similarities, k + len(exclude))[:k + len(exclude)]
 
@@ -171,38 +182,41 @@ class EmojiScaler:
 
         return [emoji for emoji, _ in topk]
 
+    # Construct a semantic scale using projection along a concept axis
     def generate_scale_with_axis(
         self,
         column_name: str,
         axis_pair: Tuple[str, str],
         top_k=100,
         scale_size=5,
-        num_endpoints=3  # how many top LOW/HIGH to try
+        num_endpoints=3
     ) -> List[List[str]]:
         query_vec = self.model.encode(column_name, convert_to_tensor=True).to(self.device)
         a_vec = self.model.encode(axis_pair[0], convert_to_tensor=True).to(self.device)
         b_vec = self.model.encode(axis_pair[1], convert_to_tensor=True).to(self.device)
-        
+
+        # Normalize vectors and compute axis direction
         a_vec = a_vec / (a_vec.norm() + 1e-6)
         b_vec = b_vec / (b_vec.norm() + 1e-6)
         axis_unit = (b_vec - a_vec) / ((b_vec - a_vec).norm() + 1e-6)
         midpoint = (a_vec + b_vec) / 2.0
-        
-        all_embeddings = self.all_embeddings
-        similarities = util.pytorch_cos_sim(query_vec, all_embeddings)[0]
+
+        # Find emojis closest to column meaning
+        similarities = util.pytorch_cos_sim(query_vec, self.all_embeddings)[0]
         top_indices = similarities.topk(top_k).indices.tolist()
         selected = self.emoji_df.iloc[top_indices].copy()
 
+        # Project embeddings onto axis and compute relevance scores
         selected_embeddings = torch.stack([
             torch.nn.functional.normalize(self._to_tensor(x), dim=0)
             for x in selected["embedding"]
         ])
-
         centered = selected_embeddings - midpoint
         projection = torch.matmul(centered, axis_unit)
         relevance = util.pytorch_cos_sim(query_vec, selected_embeddings)[0]
         semantic_boost = torch.cosine_similarity(selected_embeddings, b_vec.unsqueeze(0), dim=1)
 
+        # Normalize and combine scoring metrics
         norm_proj = (projection - projection.mean()) / (projection.std() + 1e-6)
         norm_rel = (relevance - relevance.mean()) / (relevance.std() + 1e-6)
         norm_semantic_boost = (semantic_boost - semantic_boost.mean()) / (semantic_boost.std() + 1e-6)
@@ -210,21 +224,18 @@ class EmojiScaler:
         final_score_np = final_score.detach().cpu().numpy()
         selected["emoji_text"] = selected["emoji"] + " (" + np.round(final_score_np, 2).astype(str) + ")"
         selected["score"] = final_score_np.tolist()
-
         sorted_df = selected.sort_values(by="score", ascending=True).reset_index(drop=True)
 
         if len(sorted_df) < scale_size:
             return [sorted_df["emoji_text"].tolist()]
 
-        # endpoint
+        # Select endpoints and generate middle scale candidates
         low_candidates = self._closest_emoji_list(axis_pair[0], k=num_endpoints)
         high_candidates = self._closest_emoji_list(axis_pair[1], k=num_endpoints, exclude=low_candidates)
-
-        # middle
         middle_pool = sorted_df.iloc[1:-1]["emoji"].tolist()
         num_middle = scale_size - 2
         if len(middle_pool) < num_middle:
-            middle_pool = middle_pool * ((num_middle + len(middle_pool) - 1) // len(middle_pool))
+            middle_pool *= ((num_middle + len(middle_pool) - 1) // len(middle_pool))
 
         all_scales = []
         for low in low_candidates:
@@ -236,11 +247,11 @@ class EmojiScaler:
 
         return all_scales
 
-
+    # Ask LLM to rank a list of candidate emoji scales and return top_n
     def rank_all_scales_with_llm(self, column_name: str, all_candidates: List[Tuple[Tuple[str, str], List[str]]], top_n=10) -> List[List[str]]:
         options = "\n".join(
             f"Option {chr(65 + i)} ({a[0]} → {a[1]}) {' '.join(scale)}"
-            for i, (a, scale) in enumerate(all_candidates[:26])  # LLM input cap
+            for i, (a, scale) in enumerate(all_candidates[:26])  # LLM handles max 26 options
         )
 
         prompt = f"""
@@ -260,13 +271,11 @@ class EmojiScaler:
 
         try:
             content = self._call_openrouter(prompt).strip()
-
-            # Remove code block wrappers if present
             content = re.sub(r"^```(?:python)?\n?", "", content)
             content = re.sub(r"\n?```$", "", content)
             content = content.strip()
 
-            # Extract just the list if extra text is included
+            # Use regex to find the list of option letters
             match = re.search(r"\[(?:'?[A-Z]'?,?\s*)+\]", content)
             if match:
                 content = match.group(0)
@@ -278,5 +287,3 @@ class EmojiScaler:
         except Exception as e:
             print(f"Failed to rank emoji scales globally: {e}")
             return []
-
-

@@ -1,6 +1,5 @@
 import numpy as np
 import pandas as pd
-import yake
 from sentence_transformers import SentenceTransformer
 
 def generate_and_save_keywords(input_file, output_file, yake_kw_extractor, top_n=7):

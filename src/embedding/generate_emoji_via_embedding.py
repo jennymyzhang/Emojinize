@@ -7,11 +7,12 @@ from sentence_transformers import SentenceTransformer
 from sklearn.metrics.pairwise import cosine_similarity
 from keybert import KeyBERT
 
-
+# Constants for OpenRouter API access
 OPENROUTER_API_KEY = "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"
 OPENROUTER_API_URL = "https://openrouter.ai/api/v1/chat/completions"
 LLM_MODEL = "openai/gpt-4o-mini"
 
+# Function to call OpenRouter with a prompt and return the model's response
 def call_openrouter(prompt: str, model: str = LLM_MODEL) -> str:
     headers = {
         "Authorization": f"Bearer {OPENROUTER_API_KEY}",
@@ -32,6 +33,7 @@ def call_openrouter(prompt: str, model: str = LLM_MODEL) -> str:
     response_json = response.json()
     return response_json["choices"][0]["message"]["content"].strip()
 
+# Generate a literal, emoji-matchable description for a specific value in a column
 def generate_llm_description(value: str, column: str, table_description: str) -> str:
     prompt = f"""
     You are generating an expressive, emoji-matchable description for the value "{value}", 
@@ -56,8 +58,8 @@ def generate_llm_description(value: str, column: str, table_description: str) ->
     """
     return call_openrouter(prompt)
 
+# Extract (value, column, table) triplet from formatted query string
 def extract_triplet_from_query(query_text: str) -> Tuple:
-    # Expects: "{value} in the context of {column_context} and table {table_description}"
     parts = query_text.split(" in the column of: ")
     value = parts[0].strip()
     col_and_table = parts[1].split(" and table ")
@@ -65,18 +67,21 @@ def extract_triplet_from_query(query_text: str) -> Tuple:
     table_description = col_and_table[1].strip()
     return value, column, table_description
 
+# Load all models and embeddings
 def load_models_and_data():
-    # Initialize models
+    # Load embedding model
     embedding_model = SentenceTransformer('paraphrase-mpnet-base-v2')
+    # Initialize KeyBERT with same model
     keyword_model = KeyBERT(model=embedding_model)
 
-    # Load data
+    # Load emoji dataframe and embeddings
     df = pd.read_csv('../data/emoji_data_with_sentiment.csv')
     description_embeddings = np.load('../data/emoji_description_embeddings.npy')
     keyword_embeddings = np.load('../data/emoji_keyword_embeddings.npy')
 
     return embedding_model, keyword_model, df, description_embeddings, keyword_embeddings
 
+# Main logic to find relevant emojis for a given query
 def find_emojis_for_each_keyword(
     query_text,
     df,
@@ -88,14 +93,14 @@ def find_emojis_for_each_keyword(
     keyword_weight=0.6,
     top_k=10
 ):
-    # Step 1: Use OpenRouter to enhance the query
+    # Parse query and get LLM-enhanced description
     value, column, table_description = extract_triplet_from_query(query_text)
     llm_description = generate_llm_description(value, column, table_description)
 
-    # Step 2: Embed LLM description
+    # Get embedding for LLM-generated description
     desc_embedding = embedding_model.encode(llm_description, convert_to_numpy=True)
 
-    # Step 3: Extract keywords from the LLM-enhanced description
+    # Extract keywords using KeyBERT
     query_keywords = keyword_model.extract_keywords(
         llm_description,
         keyphrase_ngram_range=(1, 3),
@@ -104,14 +109,13 @@ def find_emojis_for_each_keyword(
     )
     extracted_keywords = [kw for kw, _ in query_keywords]
 
-    # Step 4: Compute similarities
-    # a) Description similarity (1 vector vs. emoji description matrix)
+    # Compute cosine similarity with emoji description embeddings
     desc_sim = cosine_similarity(
         desc_embedding.reshape(1, -1),
         description_embeddings
-    )[0]  # shape: (n_emojis,)
+    )[0]
 
-    # b) Keyword similarity (average over all extracted keyword embeddings)
+    # Compute similarity with emoji keyword embeddings if keywords exist
     if extracted_keywords:
         keyword_embeds = np.array([
             embedding_model.encode(kw, convert_to_numpy=True)
@@ -121,16 +125,17 @@ def find_emojis_for_each_keyword(
         keyword_sim = cosine_similarity(
             keyword_mean.reshape(1, -1),
             keyword_embeddings
-        )[0]  # shape: (n_emojis,)
+        )[0]
     else:
         keyword_sim = np.zeros_like(desc_sim)
 
-    # Step 5: Combine similarities
+    # Combine similarities using specified weights
     combined_sim = desc_weight * desc_sim + keyword_weight * keyword_sim
 
-    # Step 6: Rank top_k
+    # Get top-k emojis by combined similarity
     top_indices = np.argsort(combined_sim)[::-1][:top_k]
 
+    # Prepare output dictionary
     results = []
     for idx in top_indices:
         row = df.iloc[idx]
@@ -143,6 +148,7 @@ def find_emojis_for_each_keyword(
 
     return {llm_description: results}
 
+# Wrapper for use in notebooks or external scripts
 def get_emojis_for_texts(
     query_text,
     embedding_model,
@@ -158,15 +164,16 @@ def get_emojis_for_texts(
         query_text=query_text,
         df=df,
         description_embeddings=description_embeddings,
-            keyword_embeddings=keyword_embeddings,
-            embedding_model=embedding_model,
-            keyword_model=keyword_model,
-            desc_weight=desc_weight,
-            keyword_weight=keyword_weight,
-            top_k=top_k
+        keyword_embeddings=keyword_embeddings,
+        embedding_model=embedding_model,
+        keyword_model=keyword_model,
+        desc_weight=desc_weight,
+        keyword_weight=keyword_weight,
+        top_k=top_k
     )
     return matches
 
+# CLI entry point
 def main():
     parser = argparse.ArgumentParser(description="Emoji Finder CLI Tool")
     parser.add_argument('--query', type=str, required=True, help='Query text to search emojis for.')
@@ -181,10 +188,10 @@ def main():
     desc_weight = args.desc_weight
     keyword_weight = args.keyword_weight
 
-    # Load everything
+    # Load models and data
     embedding_model, keyword_model, df, description_embeddings, keyword_embeddings = load_models_and_data()
 
-    # Run the search
+    # Run emoji matching logic
     keyword_emoji_matches = find_emojis_for_each_keyword(
         query_text=query_text,
         df=df,
@@ -205,5 +212,6 @@ def main():
         for match in matches:
             print(f"  {match['emoji']} (Similarity: {match['similarity']:.4f})")
 
+# Run the CLI if executed as a script
 if __name__ == '__main__':
     main()
