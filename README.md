@@ -12,6 +12,8 @@ This project generates emoji-based annotations for tabular data, including:
 ### Install requirements
 
 ```bash
+python3 -m venv .venv
+source .venv/bin.activate
 pip install -r requirements.txt
 ```
 
@@ -20,6 +22,7 @@ pip install -r requirements.txt
 ### 1. Annotate a CSV with emojis
 
 ```bash
+cd src/emoji_data
 python generate_emojis.py \
   --input_csv ../data/my_table.csv \
   --output_json ../results/annotated.json \
