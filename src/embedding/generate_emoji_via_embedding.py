@@ -1,13 +1,71 @@
 import argparse
+from ast import Tuple
 import pandas as pd
 import numpy as np
+import requests
 from sentence_transformers import SentenceTransformer
 from sklearn.metrics.pairwise import cosine_similarity
 from keybert import KeyBERT
 
-def load_models_and_data():
-    print(" Loading models and data...")
 
+OPENROUTER_API_KEY = "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"
+OPENROUTER_API_URL = "https://openrouter.ai/api/v1/chat/completions"
+LLM_MODEL = "openai/gpt-4o-mini"
+
+def call_openrouter(prompt: str, model: str = LLM_MODEL) -> str:
+    headers = {
+        "Authorization": f"Bearer {OPENROUTER_API_KEY}",
+        "Content-Type": "application/json"
+    }
+
+    body = {
+        "model": model,
+        "messages": [{"role": "user", "content": prompt}],
+        "temperature": 0.5
+    }
+
+    response = requests.post(OPENROUTER_API_URL, headers=headers, json=body, timeout=15)
+
+    if response.status_code != 200:
+        raise ValueError(f"LLM call failed: {response.status_code} - {response.text}")
+
+    response_json = response.json()
+    return response_json["choices"][0]["message"]["content"].strip()
+
+def generate_llm_description(value: str, column: str, table_description: str) -> str:
+    prompt = f"""
+    You are generating an expressive, emoji-matchable description for the value "{value}", 
+    which appears in the column "{column}" within the table titled "{table_description}".
+
+    Your task is to:
+    - Identify any **real-world associations** of the value (e.g., BWI → Washington DC, Amazon → e-commerce).
+    - Describe these associations using **concrete, literal, and visually grounded** terms.
+    - Emphasize **objects, places, or symbols** commonly represented by emojis (e.g., planes, stars, trucks, boxes, tools, money).
+    - Avoid vague emotional or symbolic language like "excited travelers" or "memorable moments".
+
+    Good descriptions should:
+    - Mention related cities, regions, or organizations if relevant.
+    - Highlight things that can be visually seen, touched, or felt — not ideas.
+
+    **Examples**:
+    - For "Amazon" in column "Place": "Amazon is a company known for delivery boxes, warehouses, and online shopping"
+    - For "Score" in column "Rating": "Scores are shown using stars, hearts, and thumbs up"
+    - For "BWI" in column "Airport": "BWI is an airport near Washington DC, with planes, runways, and control towers"
+
+    Return one single sentence. No bullet points, no commentary — just the description.
+    """
+    return call_openrouter(prompt)
+
+def extract_triplet_from_query(query_text: str) -> Tuple:
+    # Expects: "{value} in the context of {column_context} and table {table_description}"
+    parts = query_text.split(" in the column of: ")
+    value = parts[0].strip()
+    col_and_table = parts[1].split(" and table ")
+    column = col_and_table[0].strip()
+    table_description = col_and_table[1].strip()
+    return value, column, table_description
+
+def load_models_and_data():
     # Initialize models
     embedding_model = SentenceTransformer('paraphrase-mpnet-base-v2')
     keyword_model = KeyBERT(model=embedding_model)
@@ -30,55 +88,60 @@ def find_emojis_for_each_keyword(
     keyword_weight=0.6,
     top_k=10
 ):
-    # Step 1: Extract keywords from query_text
+    # Step 1: Use OpenRouter to enhance the query
+    value, column, table_description = extract_triplet_from_query(query_text)
+    llm_description = generate_llm_description(value, column, table_description)
+
+    # Step 2: Embed LLM description
+    desc_embedding = embedding_model.encode(llm_description, convert_to_numpy=True)
+
+    # Step 3: Extract keywords from the LLM-enhanced description
     query_keywords = keyword_model.extract_keywords(
-        query_text,
+        llm_description,
         keyphrase_ngram_range=(1, 3),
         stop_words='english',
-        top_n=2
+        top_n=3
     )
-    
-    # Display extracted keywords
     extracted_keywords = [kw for kw, _ in query_keywords]
 
-    # Step 2: Prepare combined dataset embeddings
-    combined_dataset_embeddings = (
-        desc_weight * description_embeddings + keyword_weight * keyword_embeddings
-    )
+    # Step 4: Compute similarities
+    # a) Description similarity (1 vector vs. emoji description matrix)
+    desc_sim = cosine_similarity(
+        desc_embedding.reshape(1, -1),
+        description_embeddings
+    )[0]  # shape: (n_emojis,)
 
-    all_results = {}
+    # b) Keyword similarity (average over all extracted keyword embeddings)
+    if extracted_keywords:
+        keyword_embeds = np.array([
+            embedding_model.encode(kw, convert_to_numpy=True)
+            for kw in extracted_keywords
+        ])
+        keyword_mean = keyword_embeds.mean(axis=0)
+        keyword_sim = cosine_similarity(
+            keyword_mean.reshape(1, -1),
+            keyword_embeddings
+        )[0]  # shape: (n_emojis,)
+    else:
+        keyword_sim = np.zeros_like(desc_sim)
 
-    # Step 3: For each keyword, find top_k emojis
-    for keyword in extracted_keywords:
+    # Step 5: Combine similarities
+    combined_sim = desc_weight * desc_sim + keyword_weight * keyword_sim
 
-        # Embed the keyword
-        keyword_embedding = embedding_model.encode(keyword, convert_to_numpy=True)
+    # Step 6: Rank top_k
+    top_indices = np.argsort(combined_sim)[::-1][:top_k]
 
-        # Compute similarity with the dataset embeddings
-        similarities = cosine_similarity(
-            keyword_embedding.reshape(1, -1),
-            combined_dataset_embeddings
-        )
+    results = []
+    for idx in top_indices:
+        row = df.iloc[idx]
+        results.append({
+            'emoji': row['emoji'],
+            'description': row['description'],
+            'keywords': row['keywords'],
+            'similarity': combined_sim[idx]
+        })
 
-        # Get top_k indices
-        top_indices = np.argsort(similarities[0])[::-1][:top_k]
-
-        # Collect results for this keyword
-        results = []
-        for idx in top_indices:
-            row = df.iloc[idx]
-            result = {
-                'emoji': row['emoji'],
-                'description': row['description'],
-                'keywords': row['keywords'],
-                'similarity': similarities[0][idx]
-            }
-            results.append(result)
-
-        # Save results under the keyword
-        all_results[keyword] = results
-
-    return all_results
+    return {llm_description: results}
 
 def get_emojis_for_texts(
     query_text,
@@ -104,8 +167,6 @@ def get_emojis_for_texts(
     )
     return matches
 
-
-
 def main():
     parser = argparse.ArgumentParser(description="Emoji Finder CLI Tool")
     parser.add_argument('--query', type=str, required=True, help='Query text to search emojis for.')
@@ -119,10 +180,6 @@ def main():
     top_k = args.top_k
     desc_weight = args.desc_weight
     keyword_weight = args.keyword_weight
-
-    print(f"\nRunning Emoji Search")
-    print(f"Query: {query_text}")
-    print(f"Top K: {top_k} | Desc Weight: {desc_weight} | Keyword Weight: {keyword_weight}")
 
     # Load everything
     embedding_model, keyword_model, df, description_embeddings, keyword_embeddings = load_models_and_data()

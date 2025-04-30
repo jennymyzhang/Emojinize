@@ -6,18 +6,25 @@ import requests
 import re
 from typing import List, Tuple
 import ast
+import time
+from concurrent.futures import ThreadPoolExecutor, as_completed
 
 OPENROUTER_API_KEY = "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"
 OPENROUTER_API_URL = "https://openrouter.ai/api/v1/chat/completions"
 LLM_MODEL = "openai/gpt-4o-mini"
 
 class EmojiScaler:
-    def __init__(self, emoji_csv_path, embedding_path):
+    def __init__(self, emoji_csv_path="../data/emoji_data_with_descriptions.csv", 
+                 embedding_path="../data/emoji_description_embeddings.npy"):
         self.emoji_df = pd.read_csv(emoji_csv_path)
         self.model = SentenceTransformer("paraphrase-mpnet-base-v2")
         self.device = torch.device("mps" if torch.backends.mps.is_available() else "cpu")
         description_embeddings = np.load(embedding_path)
         self.emoji_df["embedding"] = list(description_embeddings)
+        self.all_embeddings = torch.stack([
+            torch.nn.functional.normalize(self._to_tensor(x), dim=0)
+            for x in self.emoji_df["embedding"]
+        ])
 
     def _to_tensor(self, x):
         if isinstance(x, torch.Tensor):
@@ -97,7 +104,6 @@ class EmojiScaler:
         """
 
         content = self._call_openrouter(prompt)
-        print(content)
         try:
             if content.startswith("```"):
                 content = re.sub(r"^```(?:python)?\n", "", content)
@@ -120,45 +126,50 @@ class EmojiScaler:
                 good_axes.append((a, b))
         return good_axes
 
-    
 
-    def generate_best_llm_scale(self, column_name: str, top_k=20, scale_size=3) -> List[str]:
-        axes = self.get_llm_antonym_pairs_multi(column_name, num_queries=3)
-        #axes = self.filter_axes_by_similarity(axes, column_name)
-        axis_to_emojis = {}
-        for axis in axes:
+    def generate_best_llm_scale(self, column_name: str, top_k=20, scale_size=3, top_n=10) -> List[List[str]]:
+        axes = self.get_llm_antonym_pairs_multi(column_name, num_queries=1)
+
+        all_candidates = []
+
+        def worker(axis):
             try:
                 emoji_scales = self.generate_scale_with_axis(column_name, axis, top_k=top_k, scale_size=scale_size)
-                for i, scale in enumerate(emoji_scales):
-                    axis_to_emojis[(axis, i)] = scale  # each scale is List[str]
+                if emoji_scales:
+                    return [(axis, scale) for scale in emoji_scales]
             except Exception as e:
                 print(f"Failed on axis {axis}: {e}")
-        if not axis_to_emojis:
             return []
-        return self.rank_scales_with_llm(column_name, axis_to_emojis)
 
-    def _closest_emoji_list(self, phrase: str, k: int = 3, exclude: List[str] = []) -> List[str]:
-        matches = [
-            row["emoji"]
-            for _, row in self.emoji_df.iterrows()
-            if phrase.lower() in row["description"].lower() and row["emoji"] not in exclude
-        ]
-        if len(matches) >= k:
-            return matches[:k]
+        with ThreadPoolExecutor(max_workers=min(8, len(axes))) as executor:
+            futures = [executor.submit(worker, axis) for axis in axes]
+            for future in as_completed(futures):
+                result = future.result()
+                all_candidates.extend(result)
 
-        phrase_vec = self.model.encode(phrase, convert_to_tensor=True).to(self.device)
-        all_embeddings = torch.stack([
-            torch.nn.functional.normalize(self._to_tensor(x), dim=0)
-            for x in self.emoji_df["embedding"]
-        ])
-        similarities = util.pytorch_cos_sim(phrase_vec, all_embeddings)[0]
+        if not all_candidates:
+            return []
+
+        return self.rank_all_scales_with_llm(column_name, all_candidates, top_n)
+
+
+    def _closest_emoji_list(self, phrase: str, k: int = 5, exclude: List[str] = []) -> List[str]:
+        if not hasattr(self, "_phrase_cache"):
+            self._phrase_cache = {}
+
+        if phrase not in self._phrase_cache:
+            self._phrase_cache[phrase] = self.model.encode(phrase, convert_to_tensor=True).to(self.device)
+
+        phrase_vec = self._phrase_cache[phrase]
+        similarities = util.pytorch_cos_sim(phrase_vec, self.all_embeddings)[0].cpu().numpy()
 
         emoji_list = self.emoji_df["emoji"].tolist()
-        emoji_sim = [(emoji, similarities[i].item()) for i, emoji in enumerate(emoji_list) if emoji not in exclude]
-        emoji_sim.sort(key=lambda x: x[1], reverse=True)
+        topk_indices = np.argpartition(-similarities, k + len(exclude))[:k + len(exclude)]
 
-        return [emoji for emoji, _ in emoji_sim[:k]]
+        topk = [(emoji_list[i], similarities[i]) for i in topk_indices if emoji_list[i] not in exclude]
+        topk = sorted(topk, key=lambda x: x[1], reverse=True)[:k]
 
+        return [emoji for emoji, _ in topk]
 
     def generate_scale_with_axis(
         self,
@@ -171,16 +182,13 @@ class EmojiScaler:
         query_vec = self.model.encode(column_name, convert_to_tensor=True).to(self.device)
         a_vec = self.model.encode(axis_pair[0], convert_to_tensor=True).to(self.device)
         b_vec = self.model.encode(axis_pair[1], convert_to_tensor=True).to(self.device)
-
+        
         a_vec = a_vec / (a_vec.norm() + 1e-6)
         b_vec = b_vec / (b_vec.norm() + 1e-6)
         axis_unit = (b_vec - a_vec) / ((b_vec - a_vec).norm() + 1e-6)
         midpoint = (a_vec + b_vec) / 2.0
-
-        all_embeddings = torch.stack([
-            torch.nn.functional.normalize(self._to_tensor(x), dim=0)
-            for x in self.emoji_df["embedding"]
-        ])
+        
+        all_embeddings = self.all_embeddings
         similarities = util.pytorch_cos_sim(query_vec, all_embeddings)[0]
         top_indices = similarities.topk(top_k).indices.tolist()
         selected = self.emoji_df.iloc[top_indices].copy()
@@ -198,7 +206,6 @@ class EmojiScaler:
         norm_proj = (projection - projection.mean()) / (projection.std() + 1e-6)
         norm_rel = (relevance - relevance.mean()) / (relevance.std() + 1e-6)
         norm_semantic_boost = (semantic_boost - semantic_boost.mean()) / (semantic_boost.std() + 1e-6)
-
         final_score = (0.5 * norm_proj + 0.3 * norm_rel + 0.2 * norm_semantic_boost)
         final_score_np = final_score.detach().cpu().numpy()
         selected["emoji_text"] = selected["emoji"] + " (" + np.round(final_score_np, 2).astype(str) + ")"
@@ -223,40 +230,53 @@ class EmojiScaler:
         for low in low_candidates:
             for high in high_candidates:
                 middle = middle_pool[:num_middle]
-                scale = [low + " (LOW)"] + middle + [high + " (HIGH)"]
+                scale = [low + " "] + middle + [high + " "]
                 all_scales.append(scale)
                 middle_pool = middle_pool[num_middle:] + middle  # rotate pool
 
         return all_scales
 
 
-    def rank_scales_with_llm(self, column_name: str, axis_to_emojis: dict) -> List[str]:
+    def rank_all_scales_with_llm(self, column_name: str, all_candidates: List[Tuple[Tuple[str, str], List[str]]], top_n=10) -> List[List[str]]:
         options = "\n".join(
-            f"Option {chr(65+i)} {' '.join(emojis)}"
-            for i, (_, emojis) in enumerate(axis_to_emojis.items())
+            f"Option {chr(65 + i)} ({a[0]} → {a[1]}) {' '.join(scale)}"
+            for i, (a, scale) in enumerate(all_candidates[:26])  # LLM input cap
         )
-        print(options)
+
         prompt = f"""
-        Imagine you're designing a visual indicator using emojis for the concept '{column_name}'.
-        Which of these best conveys a meaningful, expressive, and transition from low to high? Make sure the scale is understood by a wide audience.
-        Dont include any special character emojis in the scale. And make sure people can associate the emojis with the concept '{column_name}'.
+        You're designing emoji-based visual scales to represent levels of '{column_name}'.
+
+        Each option below is a candidate scale based on a semantic axis (e.g., 'sad face' to 'happy face').
+
+        Choose the best {top_n} options that:
+        - Show a smooth and expressive low-to-high visual transition.
+        - Have a strong connection to the concept '{column_name}'.
+        - Avoid symbols, flags, or ambiguous emojis.
 
         {options}
 
-        Reply with the best option letter only (e.g., A, B, C).
+        Reply with a Python list of the top {top_n} option letters, e.g.: ['A', 'C', 'F']
         """
-        content = self._call_openrouter(prompt).upper().strip()
-        idx = ord(content[0]) - 65 if content and content[0].isalpha() else -1
-        return list(axis_to_emojis.values())[idx] if 0 <= idx < len(axis_to_emojis) else []
+
+        try:
+            content = self._call_openrouter(prompt).strip()
+
+            # Remove code block wrappers if present
+            content = re.sub(r"^```(?:python)?\n?", "", content)
+            content = re.sub(r"\n?```$", "", content)
+            content = content.strip()
+
+            # Extract just the list if extra text is included
+            match = re.search(r"\[(?:'?[A-Z]'?,?\s*)+\]", content)
+            if match:
+                content = match.group(0)
+
+            selected_letters = ast.literal_eval(content)
+            selected_indices = [ord(ch.upper()) - 65 for ch in selected_letters if isinstance(ch, str) and ch.isalpha()]
+            return [all_candidates[i][1] for i in selected_indices if 0 <= i < len(all_candidates)]
+
+        except Exception as e:
+            print(f"Failed to rank emoji scales globally: {e}")
+            return []
 
 
-# Example usage:
-scaler = EmojiScaler(
-    emoji_csv_path="../data/emoji_data_with_descriptions.csv",
-    embedding_path="../data/emoji_description_embeddings.npy"
-)
-
-print("Best scale for 'battery':", scaler.generate_best_llm_scale("battery"))
-print("Best scale for 'popularity':", scaler.generate_best_llm_scale("popularity"))
-print("Best scale for 'popularity':", scaler.generate_best_llm_scale("speed"))
-print("Best scale for 'popularity':", scaler.generate_best_llm_scale("emotion"))

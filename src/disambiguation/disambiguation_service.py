@@ -3,11 +3,6 @@ from nltk.corpus import wordnet as wn
 from sentence_transformers import SentenceTransformer
 import numpy as np
 
-nltk.download("wordnet")
-nltk.download("omw-1.4")
-nltk.download("punkt")
-nltk.download("averaged_perceptron_tagger")
-
 # Load model
 model = SentenceTransformer("paraphrase-mpnet-base-v2")
 
@@ -74,4 +69,4 @@ def get_best_sense_by_embedding(context: str, target_word: str, threshold: float
         "examples": best_synset.examples(),
         "score": best_score
     }
-
+    

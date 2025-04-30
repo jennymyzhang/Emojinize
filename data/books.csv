@@ -1,3 +1,4 @@
+This table is about book information and ratings,,,,,,,,,,,
 Title,Genre,Author,Author Gender,Author Age,Pages,Goodreads Rating,Goodreads Rating Count,NYT Bestseller,Author Nationality,Amazon Rating,Amazon Rating Count
 Autumn,Fiction,Ali Smith,female,54,264,3.7,10259,FALSE,UK,2.8,928
 Exit West,Fiction,Mohsin Hamid,male,46,240,3.8,27086,TRUE,Pakistan,4.2,2357
@@ -10,14 +11,14 @@ Locking Up Our Own,Nonfiction,James Forman Jr.,male,50,320,4.3,254,FALSE,USA,4.8
 Prairie Fires,Nonfiction,Caroline Fraser,female,57,640,4.3,89,FALSE,USA,4.4,1283
 Priestdaddy,Nonfiction,Patricia Lockwood,female,35,336,3.9,2415,FALSE,USA,3.8,422
 The Association of Small Bombs,Fiction,Karan Mahajan,male,32,288,3.6,6788,FALSE,USA,3.7,260
-The North Water,Fiction,Ian McGuire,male,52,272,4.0,12646,TRUE,UK,4.3,1742
-The Underground Railroad,Fiction,Colson Whitehead,male,47,306,4.0,82601,TRUE,USA,4.4,10275
+The North Water,Fiction,Ian McGuire,male,52,272,4,12646,TRUE,UK,4.3,1742
+The Underground Railroad,Fiction,Colson Whitehead,male,47,306,4,82601,TRUE,USA,4.4,10275
 The Vegetarian,Fiction,Han Kang,female,37,188,3.6,34421,FALSE,South Korea,3.9,1575
 War and Turpentine,Fiction,Stefan Hertmans,male,62,304,3.9,4240,FALSE,Belgium,4.2,173
 At the Existentialist Cafe,Nonfiction,Sarah Bakewell,female,53,440,4.2,2886,FALSE,UK,4.6,527
 Dark Money,Nonfiction,Jane Mayer,female,61,464,4.3,7622,TRUE,USA,4.7,2903
 Evicted,Nonfiction,Matthew Desmond,male,35,418,4.5,15452,TRUE,USA,4.7,3643
-In the Darkroom,Nonfiction,Susan Faludi,female,57,432,4.0,1520,FALSE,USA,4.1,211
+In the Darkroom,Nonfiction,Susan Faludi,female,57,432,4,1520,FALSE,USA,4.1,211
 The Return,Nonfiction,Hisham Matar,male,46,288,4.2,2123,FALSE,USA,4.3,496
 The Door,Fiction,Magda Szabó,female,69,272,4.1,8242,FALSE,Hungary,4.4,513
 A Manual for Cleaning Women,Fiction,Lucia Berlin,female,79,432,4.2,7661,TRUE,USA,4.5,784
