@@ -2,6 +2,8 @@
 
 **Emojinize** is an AI-powered emoji recommendation system that enhances datasets with semantically meaningful emoji annotations. Whether you're working with raw text, categorical labels, or numerical features, Emojinize translates your data into expressive emoji representations using a blend of natural language processing, sentence embeddings, and emoji scaling algorithms.
 
+This is a **research project under Professor Matt Brehmer**, focused on improving human-data interaction through semantic visualization.
+
 > Let your data speak with emojis 😄📊🔥❄️
 
 ---
